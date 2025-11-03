@@ -1,6 +1,6 @@
 // routes/packages.js
 var express = require('express');
-var { requireAuth } = require('../middleware/requireAuth');
+var { requireAuth } = require('../middleware/krevAutentifisering');
 var router = express.Router();
 
 var packages = [

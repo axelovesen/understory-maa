@@ -38,7 +38,7 @@ require('express-async-errors'); // fanger async-feil i express
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth');        // <-- (lager vi straks)
+var authRouter = require('./routes/autentifisering');        // <-- (lager vi straks)
 var packagesRouter = require('./routes/packages'); // <-- (lager vi straks)
 
 var app = express();
