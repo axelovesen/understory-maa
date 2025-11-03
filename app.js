@@ -65,7 +65,7 @@ app.use(session({
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
 // Statisk
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 
 // Gjør user tilgjengelig i views (til blur-logikken)
 app.use(function (req, res, next) {
