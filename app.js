@@ -1,4 +1,3 @@
-
 require('express-async-errors'); // må være øverst
 
 var express = require('express');
@@ -29,10 +28,6 @@ app.use((req, res, next) => {
   req.db = db;
   next();
 });
-
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 //middleware setup
 app.use(logger('dev'));//logger for HTTP-requests
@@ -65,7 +60,6 @@ const apiLimiter = rateLimit({
   max: 100, // maks 100 requests per IP
 });
 
-//?spørsmålstegn?
 app.use('/api', apiLimiter);
 
 // Enkel health-check (nyttig til load-test og debugging)
