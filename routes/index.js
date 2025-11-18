@@ -12,12 +12,12 @@ router.get('/', async function(req, res) {
   try {
     const loggedIn = false; //starter med å ha den false, endres senere når vi bytter til session-check / kan evt endres nå
     const companies = await getCompanies();
-    res.render('index', { title: 'Understory Bjellesauer', companies, loggedIn 
+    res.render('index', { title: 'Understory Toplist', companies, loggedIn 
 
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).send("Feil i kode");
+    return res.status(500).send("Axel er en bæsj");
   }
 });
 
@@ -31,7 +31,7 @@ router.get('/understory-toplist', async function(req, res) {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).send("Feil i kode");
+    return res.status(500).send("Axel er en tiss");
   }
 });
 
