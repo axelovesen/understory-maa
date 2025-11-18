@@ -1,31 +1,38 @@
 var express = require('express');
 var router = express.Router();
+const pool = require('../db');
 
-const companies = [
-  { name: 'Company A', score: 95 },
-  { name: 'Company B', score: 90 },
-  { name: 'Company C', score: 85 },
-];
+async function getCompanies() {
+  const [rows] = await pool.query('SELECT id, name, score FROM companies ORDER BY score DESC');
+  return rows;
+}
 
 //henter hjemmesiden
-router.get('/', function(req, res) {
-  const loggedIn = false; //starter med å ha den false, endres senere når vi bytter til session-check / kan evt endres nå
-  res.render('index', { title: 'Understory Bjellesauer' 
-  , companies, loggedIn });
+router.get('/', async function(req, res) {
+  try {
+    const loggedIn = false; //starter med å ha den false, endres senere når vi bytter til session-check / kan evt endres nå
+    const companies = await getCompanies();
+    res.render('index', { title: 'Understory Bjellesauer', companies, loggedIn 
+
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Feil i kode");
+  }
 });
 
 //GET understory toplist siden, bare synlig hvis logget inn
-router.get('/understory-toplist', function(req, res) {
-  const loggedIn = true; //midltertidig løsning før session/cookies
-  res.render('understory-toplist', { title: 'Understory Toplist', companies, loggedIn });
+router.get('/understory-toplist', async function(req, res) {
+  try {
+    const loggedIn = true; //midltertidig løsning før session/cookies
+    const companies = await getCompanies();
+    res.render('understory-toplist', { title: 'Understory Toplist', companies, loggedIn 
+
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Feil i kode");
+  }
 });
 
 module.exports = router;
-
-const pool = require('../db');
-
-async function getTopCompanies() {
-  const [rows] = await pool.query(
-    'SELECT name, score FROM companies ORDER BY score DESC LIMIT 10');
-  return rows;
-}
