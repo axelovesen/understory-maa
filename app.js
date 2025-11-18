@@ -1,4 +1,5 @@
 require('express-async-errors'); // må være øverst
+const db = require('./db');
 
 var express = require('express');
 var path = require('path');
@@ -15,6 +16,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
 
 //logger for HTTP-requests
 app.use(logger('dev'));
