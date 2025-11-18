@@ -21,3 +21,11 @@ router.get('/understory-toplist', function(req, res) {
 });
 
 module.exports = router;
+
+const pool = require('../db');
+
+async function getTopCompanies() {
+  const [rows] = await pool.query(
+    'SELECT name, score FROM companies ORDER BY score DESC LIMIT 10');
+  return rows;
+}
