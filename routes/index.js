@@ -1,21 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
+const companies = [
+  { name: 'Company A', score: 95 },
+  { name: 'Company B', score: 90 },
+  { name: 'Company C', score: 85 },
+];
+
 //henter hjemmesiden
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function(req, res) {
+  const loggedIn = false; //starter med å ha den false, endres senere når vi bytter til session-check / kan evt endres nå
+  res.render('index', { title: 'Understory Bjellesauer' 
+  , companies, loggedIn });
 });
 
-//GET understory toplist siden
-router.get('/understory-toplist', function(req, res, next) {
-  const loggedIn = false; //starter med å ha den false, endres senere når vi bytter til session-check / kan evt endres nå
-
-  const companies = [
-    { name: 'Company A', score: 95 },
-    { name: 'Company B', score: 90 },
-    { name: 'Company C', score: 85 },
-  ];
-  
+//GET understory toplist siden, bare synlig hvis logget inn
+router.get('/understory-toplist', function(req, res) {
+  const loggedIn = true; //midltertidig løsning før session/cookies
   res.render('understory-toplist', { title: 'Understory Toplist', companies, loggedIn });
 });
 
