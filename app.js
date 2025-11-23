@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('express-async-errors'); // må være øverst
 
 var express = require('express');
