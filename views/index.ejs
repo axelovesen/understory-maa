@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= Understory Toplist %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+  <meta charset="UTF-8">
+  <title><%= title %></title>
 </head>
 <body>
-    <h1>Bjellesauer</h1>
-    <p>Logg inn eller bli kunde for å få tilgang<a href="understory-toplist">Gå til topplisten</a></p>
+  <h1><%= title %></h1>
+
+  <ul>
+    <% companies.forEach(c => { %>
+      <li><%= c.name %> - <%= c.score %></li>
+    <% }) %>
+  </ul>
 </body>
 </html>
