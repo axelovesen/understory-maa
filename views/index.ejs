@@ -3,14 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <h1><%= title %></h1>
 
+  <!-- Topliste blir blurret hvis personen ikke er logget inn -->
+  <div class="<% loggedIn ? '' : 'blurred' %>">
+    <p>Dette innholdet er kun tilgjengelig for innloggede brukere.</p>
   <ul>
-    <% companies.forEach(c => { %>
-      <li><%= c.name %> - <%= c.score %></li>
-    <% }) %>
-  </ul>
+    <% if (companies && companies.length > 0) { %>
+      <% companies.forEach(function(company) { %>
+        <li><%= company.name %> - <%= company.points %> poeng</li>
+      <% }); %>
+    <% } else { %>
+      <li>Ingen selskaper tilgjengelig.</li>
+    </ul>
+  </div>
+
+  <!-- Layover som kun vises hvis man ikke er logget inn -->
+   <% if (!loggedIn) { %>
+    <div class="blurry-layover">
+      <p>Vennligst logg inn for å se topplisten</p>
+      <a href="/login">Logg inn</a>
+      <a href="/signup">Registrer deg</a>
+    </div>
 </body>
 </html>

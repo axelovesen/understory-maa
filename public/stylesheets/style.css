@@ -1,0 +1,14 @@
+.blurred {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.blury-layover {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.blury-layover a {
+    margin: 0 0.5rem;
+}

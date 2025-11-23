@@ -19,8 +19,10 @@ const db = require('./db');
 //Routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
 
 var app = express();
+app.set('trust proxy', 1); // For å kunne brukes på dopleten
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -53,6 +55,13 @@ app.use(
   })
 );
 
+//gjør loggednn tilgjengelig i alle views, veldig viktig
+app.use((req, res, next) => {
+  res.locals.loggedIn = !!req.session.user;
+  res.locals.currentUser = req.session.user || null;
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //rate limit på API
@@ -72,6 +81,7 @@ app.get('/health', (req, res) => {
 });
 
 //routes
+app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
