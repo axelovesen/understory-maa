@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title><%= title %></title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/stylesheet/styles.css">
 </head>
 <body>
   <h1><%= title %></h1>
 
   <!-- Topliste blir blurret hvis personen ikke er logget inn -->
-  <div class="<% loggedIn ? '' : 'blurred' %>">
+  <div class="<%= loggedIn ? '' : 'blurred' %>">
     <p>Dette innholdet er kun tilgjengelig for innloggede brukere.</p>
   <ul>
     <% if (companies && companies.length > 0) { %>
       <% companies.forEach(function(company) { %>
-        <li><%= company.name %> - <%= company.points %> poeng</li>
+        <li><%= company.name %> - <%= company.score %> poeng</li>
       <% }); %>
     <% } else { %>
       <li>Ingen selskaper tilgjengelig.</li>
+    <% } %>
     </ul>
   </div>
 
@@ -28,5 +29,6 @@
       <a href="/login">Logg inn</a>
       <a href="/signup">Registrer deg</a>
     </div>
+    <% } %>
 </body>
 </html>
