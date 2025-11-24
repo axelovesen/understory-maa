@@ -1,8 +1,8 @@
 function auth(req, res, next) {
-  if (!req.session.user) {
+  if (!req.session.userId) {
     return res.redirect('/login');
   }
   next();
 }
 
-module.exports = { requireAuth };
+module.exports = { auth };
