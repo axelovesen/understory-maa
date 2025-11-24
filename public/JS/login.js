@@ -1,5 +1,10 @@
 const loginModal = document.getElementById('loginModal');
 const signupModal = document.getElementById('signupModal');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const closeLoginButton = document.getElementById('closeLogin');
+const closeSignupButton = document.getElementById('closeSignup');
+const logoutButton = document.getElementById('logoutButton');
 
 const openLoginButtons = [
   document.getElementById('openLogin'),
@@ -10,11 +15,6 @@ const openSignupButtons = [
   document.getElementById('openSignup'),
   document.getElementById('openSignupOverlay')
 ];
-
-const closeLoginButton = document.getElementById('closeLogin');
-const closeSignupButton = document.getElementById('closeSignup');
-
-const logoutButton = document.getElementById('logoutButton');
 
 function openModal(modal) {
   if (modal) modal.classList.remove('hidden');
