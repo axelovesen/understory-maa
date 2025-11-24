@@ -38,14 +38,13 @@
           <h2>Utforsk Understory Toplist</h2>
           <p class="section-subtitle">Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.</p>
 
-          <% if (toplist && toplist.length > 0) { %>
+          <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
-              <% toplist.forEach(function(item, index) { %>
+              <% companies.forEach(function(company, index) { %>
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
-                  <span class="title"><%= item.title %></span>
-                  <span class="author">av <%= item.author %></span>
-                  <span class="score">Score: <%= item.score %></span>
+                  <span class="title"><%= company.name %></span>
+                  <span class="score">Score: <%= company.score %></span>
                 </li>
               <% }); %>
             </ul>
@@ -65,19 +64,18 @@
           <h2>Utforsk Understory Toplist</h2>
           <p class="section-subtitle">Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.</p>
 
-          <% if (toplist && toplist.length > 0) { %>
+          <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
-              <% toplist.forEach(function(item, index) { %>
+              <% companies.forEach(function(company, index) { %>
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
-                  <span class="title"><%= item.title %></span>
-                  <span class="author">av <%= item.author %></span>
-                  <span class="score">Score: <%= item.score %></span>
+                  <span class="title"><%= company.name %></span>
+                  <span class="score">Score: <%= company.score %></span>
                 </li>
               <% }); %>
             </ul>
           <% } else { %>
-            <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
+            <p>Ingen selskaper på topplisten enda.</p>
           <% } %>
         </section>
       <% } %>

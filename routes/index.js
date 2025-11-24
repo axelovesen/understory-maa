@@ -13,10 +13,16 @@ async function getCompanies() {
 router.get('/', async (req, res) => {
   try {
     const companies = await getCompanies();
+
+    const loggedIn = !!(req.session && req.session.userId);
+
     res.render('index', { title: 'Understory Toplist', companies 
     });
   } catch (error) {
     console.error(error);
+
+    const loggedIn = !!(req.session && req.session.userId);
+
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
