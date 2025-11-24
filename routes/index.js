@@ -4,44 +4,48 @@ const pool = require('../db');
 const auth = require('../middleware/auth');
 
 async function getCompanies() {
-  const [rows] = await pool.query('SELECT id, name, score FROM companies ORDER BY score DESC'
+  const [rows] = await pool.query(
+    'SELECT id, name, score FROM companies ORDER BY score DESC'
   );
   return rows;
 }
 
-//henter hjemmesiden
+// Henter hjemmesiden
 router.get('/', async (req, res) => {
   try {
     const companies = await getCompanies();
 
-    res.render('index', { 
-      title: 'Understory Toplist', 
-      companies, 
-      loggedIn: !!req.session.userId,
+    res.render('index', {
+      title: 'Understory Toplist',
+      companies,
+      loggedIn: !!req.session.user,
     });
   } catch (error) {
     console.error(error);
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
-      loggedIn: !!req.session.userId,
+      loggedIn: !!req.session.user,
     });
   }
 });
 
-//GET understory toplist siden, bare synlig hvis logget inn
+// /understory-toplist – kun for innloggede (kan bruke samme view)
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
     const companies = await getCompanies();
-    res.render('understory-toplist', { 
-      title: 'Understory Toplist', 
+
+    res.render('index', {
+      title: 'Understory Toplist',
       companies,
-      loggedIn: !!req.session.userId,
+      loggedIn: true,
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).send("Noe gikk galt");
+    return res.status(500).send('Noe gikk galt');
   }
 });
 
 module.exports = router;
+
+//MÅ SE OVER Å GJØRE MINDRE CHAT
