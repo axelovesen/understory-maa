@@ -14,18 +14,17 @@ router.get('/', async (req, res) => {
   try {
     const companies = await getCompanies();
 
-    const loggedIn = !!(req.session && req.session.userId);
-
-    res.render('index', { title: 'Understory Toplist', companies 
+    res.render('index', { 
+      title: 'Understory Toplist', 
+      companies, 
+      loggedIn: !!req.session.userId,
     });
   } catch (error) {
     console.error(error);
-
-    const loggedIn = !!(req.session && req.session.userId);
-
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
+      loggedIn: !!req.session.userId,
     });
   }
 });
@@ -34,7 +33,10 @@ router.get('/', async (req, res) => {
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
     const companies = await getCompanies();
-    res.render('understory-toplist', { title: 'Understory Toplist', companies
+    res.render('understory-toplist', { 
+      title: 'Understory Toplist', 
+      companies,
+      loggedIn: !!req.session.userId,
     });
   } catch (error) {
     console.error(error);
