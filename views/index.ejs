@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Title</title>
+  <title>Understory Toplist</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <script src="/login.js" defer></script>
+  <script src="/JS/login.js" defer></script>
 </head>
 <body>
   <div class="page">
@@ -26,17 +26,20 @@
       <% } %>
     </header>
 
-    <!---Innhold-->
+    <!-- Innhold -->
     <main class="main">
       <% if (loggedIn) { %>
+        <!-- Når bruker er innlogget -->
         <section class="welcome-section">
-        <h2>Velkommen tilbake til Understory Toplist!</h2>
-        <p>Du er nå logget inn og kan se hele topplisten.</p>
+          <h2>Velkommen tilbake til Understory Toplist!</h2>
+          <p>Du er nå logget inn og kan se hele topplisten.</p>
         </section>
 
         <section class="toplist-section">
           <h2>Utforsk Understory Toplist</h2>
-          <p class="section-subtitle">Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.</p>
+          <p class="section-subtitle">
+            Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
+          </p>
 
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
@@ -54,7 +57,7 @@
         </section>
 
       <% } else { %>
-        <!---innlogget-->
+        <!-- Når bruker IKKE er innlogget -->
         <section class="welcome-section">
           <h2>Velkommen til Understory Toplist!</h2>
           <p>For å få full tilgang til Understory toplist, vennligst logg inn eller registrer deg.</p>
@@ -62,7 +65,9 @@
 
         <section class="toplist-section">
           <h2>Utforsk Understory Toplist</h2>
-          <p class="section-subtitle">Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.</p>
+          <p class="section-subtitle">
+            Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
+          </p>
 
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
@@ -81,38 +86,41 @@
       <% } %>
     </main>
 
-  <!---login portal-->
-  <div id="loginModal" class="modal hidden">
-    <div class="modal-content">
-      <span class="close" id="closeLogin">&times;</span>
-      <h2>Logg inn på Understory</h2>
+    <!-- Login-modal -->
+    <div id="loginModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Logg inn på Understory</h2>
 
-      <form id="loginForm">
-        <input type="email" id="email" name="email" placeholder="E-post" required>
-        <input type="password" id="password" name="password" placeholder="Passord" required>
-        <button type="submit" class="btn btn-primary btn-block">Logg inn</button>
-      </form>
-      <p id="loginError" class="error-message"></p>
-      <p class="auth-bunntekst">Har du ikke en konto? <button id="switchToSignup" class="btn btn-link">Registrer deg her</button>
-      </p>
+        <form id="loginForm">
+          <input type="email" id="email" name="email" placeholder="E-post" required>
+          <input type="password" id="password" name="password" placeholder="Passord" required>
+          <button type="submit" class="btn btn-primary btn-block">Logg inn</button>
+        </form>
+
+        <p id="loginError" class="error-message"></p>
+        <p class="auth-bunntekst">
+          Har du ikke en konto?
+          <button id="switchToSignup" class="btn btn-link">Registrer deg her</button>
+        </p>
+      </div>
     </div>
-  </div>
 
-    <!--sign up portal-->
+    <!-- Signup-modal -->
     <div id="signupModal" class="modal hidden">
       <div class="modal-content">
         <span class="close" id="closeSignup">&times;</span>
         <h2>Registrer deg - Understory</h2>
-
         <form id="signupForm">
           <input type="email" name="email" placeholder="E-post" required>
           <input type="password" name="password" placeholder="Passord" required>
           <button type="submit" class="btn btn-primary btn-block">Registrer deg</button>
         </form>
-
         <p id="signupError" class="error-message"></p>
       </div>
     </div>
   </div>
 </body>
 </html>
+
+<!--MÅ SE OVER OG GJØRE MINDRE CHAT-->

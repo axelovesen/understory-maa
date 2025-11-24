@@ -1,94 +1,136 @@
-const loginModal = document.getElementById('loginModal');
-const signupModal = document.getElementById('signupModal');
-const loginForm = document.getElementById('loginForm');
-const signupForm = document.getElementById('signupForm');
-const closeLoginButton = document.getElementById('closeLogin');
-const closeSignupButton = document.getElementById('closeSignup');
-const logoutButton = document.getElementById('logoutButton');
+document.addEventListener('DOMContentLoaded', () => {
+  // Modaler
+  const loginModal = document.getElementById('loginModal');
+  const signupModal = document.getElementById('signupModal');
 
-const openLoginButtons = [
-  document.getElementById('openLogin'),
-  document.getElementById('openLoginOverlay')
-];
+  // Knapper i headeren
+  const openLoginBtn = document.getElementById('openLogin');
+  const openSignupBtn = document.getElementById('openSignup');
 
-const openSignupButtons = [
-  document.getElementById('openSignup'),
-  document.getElementById('openSignupOverlay')
-];
+  // Close-knapper
+  const closeLoginBtn = document.getElementById('closeLogin');
+  const closeSignupBtn = document.getElementById('closeSignup');
 
-function openModal(modal) {
-  if (modal) modal.classList.remove('hidden');
-}
+  // Forms og feilmeldinger
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm');
+  const loginError = document.getElementById('loginError');
+  const signupError = document.getElementById('signupError');
 
-function closeModal(modal) {
-  if (modal) modal.classList.add('hidden');
-}
+  const switchToSignupBtn = document.getElementById('switchToSignup');
 
-openLoginButtons.forEach(button => {
-  if (button) {
-    button.addEventListener('click', () => openModal(loginModal));
+  // Hjelpefunksjoner for å vise/skjule modaler
+  function openModal(modal) {
+    modal.classList.remove('hidden');
+  }
+
+  function closeModal(modal) {
+    modal.classList.add('hidden');
+  }
+
+  // Åpne/lukke modaler
+  if (openLoginBtn) {
+    openLoginBtn.addEventListener('click', () => {
+      loginError.textContent = '';
+      openModal(loginModal);
+    });
+  }
+
+  if (openSignupBtn) {
+    openSignupBtn.addEventListener('click', () => {
+      signupError.textContent = '';
+      openModal(signupModal);
+    });
+  }
+
+  if (closeLoginBtn) {
+    closeLoginBtn.addEventListener('click', () => closeModal(loginModal));
+  }
+
+  if (closeSignupBtn) {
+    closeSignupBtn.addEventListener('click', () => closeModal(signupModal));
+  }
+
+  // Bytt fra login → signup
+  if (switchToSignupBtn) {
+    switchToSignupBtn.addEventListener('click', () => {
+      closeModal(loginModal);
+      signupError.textContent = '';
+      openModal(signupModal);
+    });
+  }
+
+  // Submit login
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.textContent = '';
+
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+          loginError.textContent = data.message || 'Innlogging feilet.';
+          return;
+        }
+
+        // Succes → redirect til topp-listen
+        window.location.href = data.redirect || '/understory-toplist';
+      } catch (err) {
+        console.error(err);
+        loginError.textContent = 'En uventet feil oppstod under innlogging.';
+      }
+    });
+  }
+
+  // Submit signup
+  if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      signupError.textContent = '';
+
+      const formData = new FormData(signupForm);
+      const email = formData.get('email');
+      const password = formData.get('password');
+
+      try {
+        const res = await fetch('/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+          signupError.textContent = data.message || 'Registrering feilet.';
+          return;
+        }
+
+        // Registrering ok → lukk signup og åpne login med melding
+        closeModal(signupModal);
+        openModal(loginModal);
+        loginError.textContent = 'Bruker opprettet. Logg inn med e-post og passord.';
+      } catch (err) {
+        console.error(err);
+        signupError.textContent = 'En uventet feil oppstod under registrering.';
+      }
+    });
   }
 });
 
-openSignupButtons.forEach(button => {
-  if (button) {
-    button.addEventListener('click', () => openModal(signupModal));
-  }
-});
 
-if (closeLoginButton) {
-  closeLoginButton.addEventListener('click', () => closeModal(loginModal));
-}
-
-if (closeSignupButton) {
-  closeSignupButton.addEventListener('click', () => closeModal(signupModal));
-}
-
-if (loginForm) {
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(loginForm);
-    const response = await fetch('/login', {
-      method: 'POST',
-      body: formData
-    });
-    const data = await response.json();
-
-    if (data.error) {
-      document.getElementById('loginError').innerText = data.error;
-    } else {
-      location.reload();
-    }
-  });
-}
-
-if (signupForm) {
-  signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(signupForm);
-    const response = await fetch('/signup', {
-      method: 'POST',
-      body: formData
-    });
-    const data = await response.json();
-
-    if (data.error) {
-      document.getElementById('signupError').innerText = data.error;
-    } else {
-      location.reload();
-    }
-  });
-}
-
-if (logoutButton) {
-  logoutButton.addEventListener('click', async () => {
-    const response = await fetch('/logout', { method: 'POST' });
-    const data = await response.json();
-
-    if (data.success) {
-      location.reload();
-    }
-  });
-}
+//MÅ SE OVER OG GJØRE MINDRE CHAT
