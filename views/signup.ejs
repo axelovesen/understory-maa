@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrer deg - Understory</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <main class="page auth-side">
+        <section class="auth-nøkkel">
+            <p class="auth-overTittel">Få tilgang til Understory Toplist.</p>
+
+            <% if (error) { %>
+                <div class="error-message"><%= error %></div>
+            <% } %>
+
+            <form action="/signup" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="name">Navn (Valgrfitt)</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-post:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Passord:</label>
+                    <input type="password" id="password" name="password" required>      
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Registrer deg</button>
+            </form>
+            <p class="auth-bunntekst">Har du allerede en konto? <a href="/login">Logg inn her</a></p>
+        </section>
+    </main> 
+</body>
+</html>

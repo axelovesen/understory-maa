@@ -3,13 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title><%= title %></title>
-  <link rel="stylesheet" href="/stylesheet/styles.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="/JS/login.js"></script>
 </head>
 <body>
-  <h1><%= title %></h1>
+  <header>
+    <h1>Understory Toplist</h1>
+    <% if (loggedIn) {%>
+    <button id="logoutButton">Logg ut</button>
+    <% } else{ %>
+      <button id ="openLogin">Logg inn</button>
+      <button id="openSignup">Opprett bruker</button>
+    <% } %>
+  </header>
 
   <!-- Topliste blir blurret hvis personen ikke er logget inn -->
-  <div class="<%= loggedIn ? '' : 'blurred' %>">
+  <div class="<%= loggedIn ? '' : 'blurred' %> toplist-container">
     <p>Dette innholdet er kun tilgjengelig for innloggede brukere.</p>
   <ul>
     <% if (companies && companies.length > 0) { %>
@@ -26,9 +35,37 @@
    <% if (!loggedIn) { %>
     <div class="blurry-layover">
       <p>Vennligst logg inn for å se topplisten</p>
-      <a href="/login">Logg inn</a>
-      <a href="/signup">Registrer deg</a>
+      <button id="openLoginOverlay">Logg inn</button>
+      <button id="openSignupOverlay">Opprett bruker</button>
     </div>
     <% } %>
+
+    <!-- login Popup -->
+    <div id="loginModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Logg inn</h2>
+        <form id="loginForm">
+          <input type="email" name="email" placeholder="e-post" required> 
+          <input type="password" name="password" placeholder="passord" required>
+          <button type="submit">Logg inn</button>
+        </form>
+        <p id="loginError" class="error"></p>
+      </div>
+    </div>
+
+    <!-- signup Popup -->
+    <div id="signupModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" id="closeSignup">&times;</span>
+        <h2>Opprett bruker</h2>
+        <form id="signupForm">
+          <input type="email" name="email" placeholder="e-post" required> 
+          <input type="password" name="password" placeholder="passord" required>
+          <button type="submit">Opprett bruker</button>
+        </form>
+        <p id="signupError" class="error"></p>
+      </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logg inn - Understory</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <main class="page auth-side">
+        <section class="auth-nøkkel">
+            <h1>Logg inn på Understory</h1>
+            <p class="auth-underTittel">Fortsett til understory Toplist.</p>
+
+            <% if (error) { %>
+                <div class="error-message"><%= error %></div>
+            <% } %>
+
+            <form action="/login" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="email">E-post:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="password">Passord:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Logg inn</button>
+                </form>
+                <p class="auth-bunntekst">Har du ikke en konto? <a href="/signup">Registrer deg her</a></p>
+        </section>
+    </main>
+</body>
+</html>
