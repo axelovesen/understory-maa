@@ -20,8 +20,8 @@ router.post('/signup', async (req, res) => {
   const { name, email, password, phone } = req.body;
 
   try {
-    if (!email || !password ||!phone) {
-      return res.render('signup', { error: 'telefon nummer og passord må fylles inn.' });
+    if (!email || !password) {
+      return res.render('signup', { error: 'E-post og passord må fylles inn.' });
     }
 
     const [existing] = await pool.query(
@@ -91,7 +91,7 @@ router.post('/login', async (req, res) => {
         .status(400)
         .json({ success: false, message: 'Feil e-post eller passord' });
     }
-    
+
     req.session.pendingUserId = user.id;
     req.session.pendingUserPhone = user.phone;//krever phone kolonne i db
 
@@ -159,13 +159,8 @@ router.post('/login', async (req, res) => {
   })
 
 
-
-
-  /*
-    req.session.user = { id: user.id, name: user.name, email: user.email };
-
-    
     res.redirect('/understory-toplist');
+    /*
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -173,6 +168,7 @@ router.post('/login', async (req, res) => {
       message: 'Noe gikk galt under innloggingen.',
     });
   }
+});
 */
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
@@ -182,4 +178,5 @@ router.get('/logout', (req, res) => {
 
 module.exports = router;
 
-//MÅ SE OVER Å GJØRE MINDRE CHAT
+
+
