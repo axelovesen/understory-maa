@@ -1,71 +1,120 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <script defer src="/JS/login.js"></script>
+  <script src="/JS/login.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Understory Toplist</h1>
-    <% if (loggedIn) {%>
-    <button id="logoutButton">Logg ut</button>
-    <% } else{ %>
-      <button id ="openLogin">Logg inn</button>
-      <button id="openSignup">Opprett bruker</button>
-    <% } %>
-  </header>
+  <div class="page">
 
-  <!-- Topliste blir blurret hvis personen ikke er logget inn -->
-  <div class="<%= loggedIn ? '' : 'blurred' %> toplist-container">
-    <p>Dette innholdet er kun tilgjengelig for innloggede brukere.</p>
-  <ul>
-    <% if (companies && companies.length > 0) { %>
-      <% companies.forEach(function(company) { %>
-        <li><%= company.name %> - <%= company.score %> poeng</li>
-      <% }); %>
-    <% } else { %>
-      <li>Ingen selskaper tilgjengelig.</li>
-    <% } %>
-    </ul>
+    <header class="site-header">
+      <h1 class="site-title">Understory Toplist</h1>
+
+      <% if (loggedIn) { %>
+        <nav class="site-nav">
+          <a href="/understory-toplist">Understory Toppliste</a>
+          <a href="/logout">Logg ut</a>
+        </nav>
+      <% } else { %>
+        <div class="site-nav">
+          <button id="openLogin" class="btn btn-skjult">Logg inn</button>
+          <button id="openSignup" class="btn btn-outline">Registrer deg</button>
+        </div>
+      <% } %>
+    </header>
+
+    <!---Innhold-->
+    <main class="main">
+      <% if (loggedIn) { %>
+        <section class="welcome-section">
+        <h2>Velkommen tilbake til Understory Toplist!</h2>
+        <p>Du er nå logget inn og kan se hele topplisten.</p>
+        </section>
+
+        <section class="toplist-section">
+          <h2>Utforsk Understory Toplist</h2>
+          <p class="section-subtitle">Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.</p>
+
+          <% if (toplist && toplist.length > 0) { %>
+            <ul class="toplist">
+              <% toplist.forEach(function(item, index) { %>
+                <li class="toplist-item">
+                  <span class="rank"><%= index + 1 %></span>
+                  <span class="title"><%= item.title %></span>
+                  <span class="author">av <%= item.author %></span>
+                  <span class="score">Score: <%= item.score %></span>
+                </li>
+              <% }); %>
+            </ul>
+          <% } else { %>
+            <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
+          <% } %>
+        </section>
+
+      <% } else { %>
+        <!---innlogget-->
+        <section class="welcome-section">
+          <h2>Velkommen til Understory Toplist!</h2>
+          <p>For å få full tilgang til Understory toplist, vennligst logg inn eller registrer deg.</p>
+        </section>
+
+        <section class="toplist-section">
+          <h2>Utforsk Understory Toplist</h2>
+          <p class="section-subtitle">Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.</p>
+
+          <% if (toplist && toplist.length > 0) { %>
+            <ul class="toplist">
+              <% toplist.forEach(function(item, index) { %>
+                <li class="toplist-item">
+                  <span class="rank"><%= index + 1 %></span>
+                  <span class="title"><%= item.title %></span>
+                  <span class="author">av <%= item.author %></span>
+                  <span class="score">Score: <%= item.score %></span>
+                </li>
+              <% }); %>
+            </ul>
+          <% } else { %>
+            <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
+          <% } %>
+        </section>
+      <% } %>
+    </main>
+
+  <!---login portal-->
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="closeLogin">&times;</span>
+      <h2>Logg inn på Understory</h2>
+
+      <form id="loginForm">
+        <input type="email" id="email" name="email" placeholder="E-post" required>
+        <input type="password" id="password" name="password" placeholder="Passord" required>
+        <button type="submit" class="btn btn-primary btn-block">Logg inn</button>
+      </form>
+      <p id="loginError" class="error-message"></p>
+      <p class="auth-bunntekst">Har du ikke en konto? <button id="switchToSignup" class="btn btn-link">Registrer deg her</button>
+      </p>
+    </div>
   </div>
 
-  <!-- Layover som kun vises hvis man ikke er logget inn -->
-   <% if (!loggedIn) { %>
-    <div class="blurry-layover">
-      <p>Vennligst logg inn for å se topplisten</p>
-      <button id="openLoginOverlay">Logg inn</button>
-      <button id="openSignupOverlay">Opprett bruker</button>
-    </div>
-    <% } %>
-
-    <!-- login Popup -->
-    <div id="loginModal" class="modal hidden">
-      <div class="modal-content">
-        <span class="close" id="closeLogin">&times;</span>
-        <h2>Logg inn</h2>
-        <form id="loginForm">
-          <input type="email" name="email" placeholder="e-post" required> 
-          <input type="password" name="password" placeholder="passord" required>
-          <button type="submit">Logg inn</button>
-        </form>
-        <p id="loginError" class="error"></p>
-      </div>
-    </div>
-
-    <!-- signup Popup -->
+    <!--sign up portal-->
     <div id="signupModal" class="modal hidden">
       <div class="modal-content">
         <span class="close" id="closeSignup">&times;</span>
-        <h2>Opprett bruker</h2>
+        <h2>Registrer deg - Understory</h2>
+
         <form id="signupForm">
-          <input type="email" name="email" placeholder="e-post" required> 
-          <input type="password" name="password" placeholder="passord" required>
-          <button type="submit">Opprett bruker</button>
+          <input type="email" name="email" placeholder="E-post" required>
+          <input type="password" name="password" placeholder="Passord" required>
+          <button type="submit" class="btn btn-primary btn-block">Registrer deg</button>
         </form>
-        <p id="signupError" class="error"></p>
+
+        <p id="signupError" class="error-message"></p>
       </div>
     </div>
+  </div>
 </body>
 </html>
