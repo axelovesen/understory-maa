@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title><%= title %></title>
-  <link rel="stylesheet" href="/stylesheets/styles.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <script defer src="/JS/login.js"></script>
 </head>
 <body>
   <header>
     <h1>Understory Toplist</h1>
     <% if (loggedIn) {%>
-    <button id="logout-button">Logg ut</button>
+    <button id="logoutButton">Logg ut</button>
     <% } else{ %>
       <button id ="openLogin">Logg inn</button>
       <button id="openSignup">Opprett bruker</button>
     <% } %>
   </header>
-
-  <h1><%= title %></h1>
 
   <!-- Topliste blir blurret hvis personen ikke er logget inn -->
   <div class="<%= loggedIn ? '' : 'blurred' %> toplist-container">
@@ -37,8 +35,8 @@
    <% if (!loggedIn) { %>
     <div class="blurry-layover">
       <p>Vennligst logg inn for å se topplisten</p>
-      <button id="openLogin">Logg inn</button>
-      <button id="openSignup">Opprett bruker</button>
+      <button id="openLoginOverlay">Logg inn</button>
+      <button id="openSignupOverlay">Opprett bruker</button>
     </div>
     <% } %>
 
@@ -55,7 +53,7 @@
         <p id="loginError" class="error"></p>
       </div>
     </div>
-    
+
     <!-- signup Popup -->
     <div id="signupModal" class="modal hidden">
       <div class="modal-content">
