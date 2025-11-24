@@ -58,7 +58,7 @@ app.use(
 //gjør loggednn tilgjengelig i alle views, veldig viktig
 app.use((req, res, next) => {
   res.locals.loggedIn = !!req.session.user;
-  res.locals.currentUser = req.session.user || null;
+  res.locals.currentUserId = req.session.userId || null;
   next();
 });
 
