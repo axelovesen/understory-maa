@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Modaler
   const loginModal = document.getElementById('loginModal');
   const signupModal = document.getElementById('signupModal');
+  const twoFactorModal = document.getElementById('twoFactorModal'); 
 
   // Knapper i headeren
   const openLoginBtn = document.getElementById('openLogin');
@@ -10,14 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Close-knapper
   const closeLoginBtn = document.getElementById('closeLogin');
   const closeSignupBtn = document.getElementById('closeSignup');
+  const close2FABtn = document.getElementById('close2FA');
 
   // Forms og feilmeldinger
   const loginForm = document.getElementById('loginForm');
   const signupForm = document.getElementById('signupForm');
   const loginError = document.getElementById('loginError');
   const signupError = document.getElementById('signupError');
+  const twoFactorError = document.getElementById('twoFactorError');
 
   const switchToSignupBtn = document.getElementById('switchToSignup');
+  const verify2FAButton = document.getElementById('verify2FA');
+  const twoFactorCodeInput = document.getElementById('twoFactorCode');
+
 
   // Hjelpefunksjoner for å vise/skjule modaler
   function openModal(modal) {
@@ -49,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (closeSignupBtn) {
     closeSignupBtn.addEventListener('click', () => closeModal(signupModal));
+  }
+
+  if (close2FABtn) {
+    close2FABtn.addEventListener('click', () => closeModal(twoFactorModal));
   }
 
   // Bytt fra login → signup
@@ -85,14 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Succes → redirect til topp-listen
-        window.location.href = data.redirect || '/understory-toplist';
-      } catch (err) {
+
+        if (data.requires2FA) {
+          closeModal(loginModal);
+          twoFactorError.textContent = '';
+          if(twoFactorCodeInput) twoFactorCodeInput.value = '';
+          openModal(twoFactorModal);
+          return;
+        }
+
+      } catch (err){
         console.error(err);
         loginError.textContent = 'En uventet feil oppstod under innlogging.';
       }
     });
   }
+
 
   // Submit signup
   if (signupForm) {
@@ -102,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const formData = new FormData(signupForm);
       const email = formData.get('email');
+      const phone = formData.get('phone');
       const password = formData.get('password');
 
       try {
@@ -110,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, phone, password }),
         });
 
         const data = await res.json();
@@ -130,7 +149,39 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  //2FA bekreft kode
+  if(verify2FAButton){
+    verify2FAButton.addEventListener('click', async () => {
+      if(!twoFactorCodeInput) return;
+
+      const code = twoFactorCodeInput.value.trim();
+      twoFactorError.textContent = '';
+
+      if(!code){
+        twoFactorError.textContent = 'skriv inn koden du fikk på SMS';
+        return;
+      }
+
+      try{
+        const res = await fetch('/2fa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code }),
+        });
+
+        const data = await res.json();
+
+        if(!data.success){
+          twoFactorError.textContent = data.message || 'Ugyldig kode, Prøv igjen.';
+          return;
+        }
+
+        window.location.href = data.redirect || '/understory-toplist';
+
+      } catch (err){
+        console.error(err);
+        twoFactorError.textContent = 'En uventet feil oppstod under 2FA.';
+      }
+    });
+  }
 });
-
-
-//MÅ SE OVER OG GJØRE MINDRE CHAT

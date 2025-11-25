@@ -64,10 +64,6 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Login 
-router.get('/login', (req, res) => {
-  res.render('login', { error: null });
-});
 
 // Login (POST)
 router.post('/login', async (req, res) => {
@@ -110,13 +106,17 @@ router.post('/login', async (req, res) => {
       .services(verifyServiceSid)
       .verifications
       .create({
-        to: req.session.pendingUserPhone, //brukerens telefonnummer fra session
+        to: user.phone,
         channel: 'sms'
       });
 
-      //send bruker videre til 2FA-siden, sier ifra til frontend
-    return res.json({ success: true, requires2FA: true, message: 'kode sendt til telefon'
+      //sier ifra til frontend at 2FA kreves
+    return res.json({ 
+      success: true, 
+      requires2FA: true, 
+      message: 'kode sendt til telefon'
     });
+
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -126,7 +126,7 @@ router.post('/login', async (req, res) => {
     }
   });
 
-  //2fa (GET)
+  //2fa (POST)
   router.post('/2fa', async (req, res) => {
     try {
       const { code } = req.body;

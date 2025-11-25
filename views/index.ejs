@@ -50,6 +50,7 @@
       </div>
 
       <% if (loggedIn) { %>
+
         <!-- Når bruker er innlogget -->
         <section class="welcome-section">
           <h2>Velkommen tilbake til Understory Toplist!</h2>
@@ -89,6 +90,7 @@
         </section>
 
       <% } else { %>
+
         <!-- Når bruker IKKE er innlogget -->
         <section class="welcome-section">
           <h2>Velkommen til Understory Toplist!</h2>
@@ -138,6 +140,28 @@
       </div>
     </div>
 
+    <!--2FA mondal-->
+    <div id="twoFactorModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" id="close2FA">&times;</span>
+        <h2>Tofaktor autentifisering</h2>
+        <p>Vi har en 6-sifret kode til telefonnummeret ditt. skriv inn koden for å fullføre innlogging</p>
+
+        <input
+          id="twoFactorCode"
+          type="text"
+          placeholder="Verifikasjonskode"
+          inputmode="numeric"
+          maxlength="6"
+          required/>
+
+          <p id="twoFactorError" class="error-message"></p>
+          <button id="verify2FA" class="btn btn-primary btn-block">
+            Bekreft kode
+          </button>
+      </div>
+    </div>
+
     <!-- Signup-modal -->
     <div id="signupModal" class="modal hidden">
       <div class="modal-content">
@@ -145,6 +169,7 @@
         <h2>Registrer deg - Understory</h2>
         <form id="signupForm">
           <input type="email" name="email" placeholder="E-post" required>
+          <input type="phone" name="phone" placeholder="Telefonnummer" required>
           <input type="password" name="password" placeholder="Passord" required>
           <button type="submit" class="btn btn-primary btn-block">Registrer deg</button>
         </form>
