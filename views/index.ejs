@@ -109,7 +109,18 @@
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
                   <span class="title"><%= company.name %></span>
-                  <span class="score">Score: <%= company.score %></span>
+
+                  <% if (sort === 'revenue') { %>
+                    <span class="metric">Omsetning: <%= company.revenue %> DKK</span>
+                  <% } else if (sort === 'bookings') { %>
+                    <span class="metric">Bookinger: <%= company.bookings %></span>
+                  <% } else if (sort === 'clicks') { %>
+                    <span class="metric">Annonseklikk: <%= company.clicks %></span>
+                  <% } else if (sort === 'visits') { %>
+                    <span class="metric">Besøkende: <%= company.visits %></span>
+                  <% } else { %>
+                    <span class="metric">Score: <%= company.score %></span>
+                  <% } %>
                 </li>
               <% }); %>
             </ul>
