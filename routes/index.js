@@ -12,34 +12,38 @@ const SORT_COLUMNS = {
   visits: 'visits', 
   score: 'score',};
 
-const PERIODS = {
-  '1M':0.25,
-  '3M':0.5,
-  '6M':0.75,
-  '12M':1,
-};
+function buildPeriodCondtition(period) {
+  switch (period) {
+    case '1M':
+      return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+    case '3M':
+      return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)";
+    case '6M':
+      return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)";
+    case '12M':
+    default:
+      return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)";
+  }
+}
 
 async function getCompanies(sort = 'score', period = '12M') {
   const sortColumn = SORT_COLUMNS[sort] || 'score';
-  const periodFactor = PERIODS[period] || 1;
-
+  const periodFactor = buildPeriodCondtition(period);
+  
   const [rows] = await pool.query(
-    `SELECT id, name, revenue, bookings, clicks, visits, 
-    score FROM companies ORDER BY ${sortColumn} DESC LIMIT 10`
+    `SELECT c.id, c.name,
+      SUM(k.revenue) AS revenue,
+      SUM(k.bookings) AS bookings,
+      SUM(k.clicks) AS clicks,
+      SUM(k.visits) AS visits,
+      AVG(k.score) AS score
+    FROM companies c
+    JOIN kpis k ON c.id = k.company_id
+    WHERE ${periodFactor}
+    GROUP BY c.id
+    ORDER BY ${sortColumn} DESC`
   );
-  // Juster score basert på periode
-  const companies = rows.map(company => {
-    const revenueNumber = Number(company.revenue)
-    return {
-      ...company,
-      score: Math.round(company.score * periodFactor * 100) / 100,
-      revenue: isNaN(revenueNumber) ? company.revenue : Math.round(revenueNumber * periodFactor * 100) / 100,
-      bookings: Math.round(company.bookings * periodFactor * 100) / 100,
-      clicks: Math.round(company.clicks * periodFactor * 100) / 100,
-      visits: Math.round(company.visits * periodFactor * 100) / 100,
-    };
-  });
-  return companies;
+  return rows;
 }
 
 // Henter hjemmesiden
