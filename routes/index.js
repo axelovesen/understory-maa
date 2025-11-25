@@ -33,7 +33,7 @@ async function getCompanies(sort = 'score', period = '12M') {
     return {
       ...company,
       score: Math.round(company.score * periodFactor * 100) / 100,
-      revenue: isNaN(revenueNumber) ? company.revenue : Math.round(revenueNumber * periodFactor * 100) / 100
+      revenue: isNaN(revenueNumber) ? company.revenue : Math.round(revenueNumber * periodFactor * 100) / 100,
       bookings: Math.round(company.bookings * periodFactor * 100) / 100,
       clicks: Math.round(company.clicks * periodFactor * 100) / 100,
       visits: Math.round(company.visits * periodFactor * 100) / 100,
