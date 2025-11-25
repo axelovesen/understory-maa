@@ -2,13 +2,17 @@ function updateQuery(parms) {
     const url = new URL(window.location);
     
     Object.keys(parms).forEach((key) => {
-        if (parms[key] == null || parms[key] === undefined) return;
-            url.searchParams.set(key, parms[key]);
-        });
+        const values = parms[key];
+        if (values === null || values === undefined || values === '') {
+            url.searchParams.delete(key);
+        } else {
+            url.searchParams.set(key, values);
+        }
+    });
     window.location = url.toString();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
 
     const periodButtons = document.querySelectorAll('[data-period]');
     periodButtons.forEach((button) => {
