@@ -1,445 +1,370 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: #dde8cf;         
-  color: #111;
-}
+/* Basestil */
 
 body {
-  line-height: 1.4;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  background: #e9f2dd;
+  color: #111827;
 }
 
-/* Wrapper rundt hele siden */
 .page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
-/*Navn*/
+/* Sørg for at header og main er midtstilt og har samme bredde */
+
+.site-header,
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+}
+
+/* Header / topp */
+
 .site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 32px;
-  background: #d3dfc2;
-  border-bottom: 1px solid #c2ceb1;
+  gap: 16px;
 }
 
 .site-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #24331b;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
-
-.site-nav a,
-.site-nav button {
-  font-size: 0.95rem;
-}
-
-/* Knapper generelt */
 
 .btn {
-  padding: 0.5rem 0.9rem;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 7px 16px;
   border-radius: 999px;
   border: 1px solid transparent;
   cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  background: #f5f5f5;
-  color: #111;
+  background: transparent;
 }
 
-/* Skjult knapp */
+/* "Logg inn" – diskret knapp */
 .btn-skjult {
-  background: transparent;
-  border-color: #24331b;
-  color: #24331b;
+  border-color: #cbd5e1;
+  background: #f8fafc;
 }
 
-/* outline */
+/* "Registrer deg" – primær */
 .btn-outline {
-  background: transparent;
-  border: 2px solid #24331b;
-  color: #24331b;
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
 }
 
-.btn-outline:hover {
-  background: #e6efd7;
+.main {
+  padding-bottom: 40px;
 }
 
-/* kanpp */
-.btn-primary {
-  background: #183a15;
-  color: #f6ffef;
-  border: none;
-}
-
-.btn-primary:hover {
-  background: #0f2a0e;
-}
-
-/* Fyller ut hele bredden */
-.btn-block {
-  width: 100%;
+.welcome-section {
+  margin-top: 32px;
   text-align: center;
 }
 
-.btn-link {
-  background: none;
-  border: none;
-  color: #1d4ed8;
-  padding: 0;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 0.9rem;
+.welcome-section h2 {
+  margin: 0;
+  font-size: 26px;
 }
 
-/*Layout*/
-
-.main-content {
-  flex: 1;
-  padding: 40px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/*Intro*/
-
-.intro {
-  margin-bottom: 32px;
-  padding: 0 4px;
-}
-
-.intro-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f321a;
-}
-
-.intro-subtitle {
-  font-size: 1rem;
-  color: #364d2c;
-  margin-top: 6px;
-  max-width: 600px;
-}
-
-/*Alternativ hero*/
-.ust-hero {
-  margin-bottom: 32px;
-}
-
-.ust-hero-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #1f321a;
-}
-
-.ust-hero-subtitle {
+.welcome-section p {
   margin-top: 8px;
-  font-size: 1rem;
-  max-width: 640px;
-  color: #364d2c;
-  line-height: 1.5;
+  color: #6b7280;
 }
 
-/* Grid for venstre (toplist)*/
+.toplist-section {
+  margin-top: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 20px 20px 16px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+}
 
-.grid {
-  background: #f7f7e8;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+.toplist-section h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.section-subtitle {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.filter-bar {
+  margin-top: 20px;
   margin-bottom: 20px;
-}
-
-/* Hvis du senere vil ha to kolonner, kan du gjøre:
-    .grid { display:grid; grid-template-columns:2fr 1fr; gap:24px; }
-    og flytte info-card inn i samme grid. */
-
-/* Tekst over venstresiden */
-
-.venstre-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: #2b3d23;
-}
-
-.venstre-subtitle {
-  font-size: 0.95rem;
-  color: #4c6040;
-  margin-bottom: 16px;
-}
-
-/* Topliste /liste wrapper*/
-
-.list-wrapper {
-  max-height: 380px;
-  overflow-y: auto;
-  padding-right: 6px;
-}
-
-.list {
-  list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.list-item {
-  display: grid;
-  grid-template-columns: 32px 1fr auto;
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 10px;
+/* Ytre container */
+.filter-left,
+.filters-right {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-/* Rank-tallet */
-.rank {
-  font-weight: 700;
-  color: #7a8765;
-  text-align: right;
-}
-
-/* Selskapsnavn */
-.title {
-  font-weight: 500;
-  color: #1f321a;
-}
-
-/* Score */
-.score {
-  font-weight: 700;
-  color: #2b3d23;
-}
-
-/* Blur når bruker ikke er innlogget */
-.blurred {
-  filter: blur(6px);
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Info*/
-
-.info-card {
-  background: #fffbd2;
-  padding: 20px;
-  border-radius: 16px;
-  margin-top: 20px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-}
-
-.info-title {
-  font-size: 1.3rem;
+/* Teksten "Filtrer etter:" (indre .filter-left) */
+.filter-left .filter-left {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   font-weight: 600;
+  color: #6b7280;
+  margin-right: 4px;
+}
+
+/* Piller/valgknapper */
+
+.pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 150ms ease-out, border-color 150ms ease-out,
+    transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.pill.small {
+  font-size: 11px;
+  padding: 5px 12px;
+}
+
+.pill:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+}
+
+.pill-active {
+  background: #111827;
+  color: #ffffff;
+  border-color: #111827;
+}
+
+.toplist {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.toplist-item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
   margin-bottom: 6px;
-  color: #1f321a;
+  background: linear-gradient(90deg, #ffffff, #f7fbf2);
+  border: 1px solid #e5e7eb;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out,
+    border-color 150ms ease-out, background 150ms ease-out;
 }
 
-.info-subtitle {
-  color: #4c6040;
-  font-size: 0.95rem;
-  line-height: 1.45;
-  margin-bottom: 16px;
+.toplist-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+  border-color: #cbd5f5;
+  background: #ffffff;
 }
 
-/* mer knapper */
+/* Rank-sirkel */
 
-.cta-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* wrapper for login/signup-sider (ikke modal) */
-.auth-side {
+.rank {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
-}
-
-.auth-nøkkel {
-  background: #1a1a1a;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 420px;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-.auth-nøkkel h1 {
-  margin: 0 0 0 0.5rem;
-  font-size: 1.7rem;
-  color: #fff;
-}
-
-.auth-underTitel {
-  margin: 0.5rem 0 1.5rem 0.5rem;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-/* input i auth-form */
-
-.auth-form .auth-group {
-  margin-bottom: 1rem;
-}
-
-.auth-form label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-size: 0.9rem;
-  color: #ddd;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #444;
-  border-radius: 6px;
-  background: #2b2b2b;
-  color: #eee;
-  font-size: 1rem;
-}
-
-.auth-form input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Auth-bunntekst (tekst under form) */
-
-.auth-bunntekst {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-  color: #ccc;
-}
-
-/* Error-melding */
-
-.error-message {
-  background: #5a0000;
-  border: 1px solid #ff4d4d;
-  color: #ffcccc;
-  padding: 0.8rem;
-  border-radius: 6px;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-}
-
-.toplist-card {
-  background: #f7f7e8;
-  position: relative;
-  padding: 1.5rem;
-  border-radius: 16px;
-  color: #1f321a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  margin-bottom: 1rem;
-}
-
-.toplist-card table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.toplist-card th,
-.toplist-card td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #dde3cf;
-}
-
-.toplist-card th {
-  background: #e6efd7;
   font-weight: 600;
+  font-size: 13px;
+  color: #1f2933;
+  background: #e0f2c6;
 }
 
-.toplist-card td {
-  background: #ffffff;
+/* Navn + metric */
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
 }
 
-/*Login signup*/
+.metric,
+.score {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+}
 
-/* Enkel modal-styling (overlay) */
+@media (max-width: 700px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    align-self: stretch;
+    justify-content: flex-end;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toplist-item {
+    grid-template-columns: 24px 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .metric,
+  .score {
+    justify-self: flex-start;
+    margin-left: 28px;
+    margin-top: 2px;
+  }
+}
+
+/* -------- MODAL OVERRIDE FIX -------- */
+
 .modal {
   position: fixed;
   inset: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 9999;
+  padding: 20px;
 }
 
-/* Skjul modaler som har .hidden */
 .modal.hidden {
   display: none;
 }
 
 .modal-content {
-  background: #222;
-  padding: 1.5rem;
-  border-radius: 8px;
-  max-width: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 28px 32px;
   width: 100%;
-  color: #fff;
+  max-width: 420px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
   position: relative;
+  animation: fadeIn 0.15s ease-out;
 }
 
-/* Lukkeknapp (X) i modalen */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Close X */
 .modal-content .close {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 1.4rem;
+  top: 14px;
+  right: 16px;
+  font-size: 24px;
   cursor: pointer;
 }
 
-/* Inputs i modal-form */
-
-#loginForm input,
-#signupForm input {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: #2b2b2b;
-  color: #eee;
-}
-
-/*blurry overlay*/
-
-.blurry-layover {
-  position: absolute;
-  inset: 0;
+/* Form */
+.modal-content form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
+  gap: 10px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.modal-content .btn-primary {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 0;
+  border-radius: 999px;
+  background: #111827;
   color: #fff;
+}
+
+.error-message {
+  color: #dc2626;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.auth-bunntekst {
+  margin-top: 14px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ---- CENTER MODAL CONTENT ---- */
+
+.modal-content {
+  text-align: center;
+}
+
+/* Sentrum-juster heading */
+.modal-content h2 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Inputfeltene skal fortsatt være full width, men sentrert i layouten */
+.modal-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* <– centrering */
+}
+
+/* Selve input-feltene */
+.modal-content input {
+  width: 100%;
+  max-width: 330px; /* <– hindrer dem i å være for brede */
+  margin: 6px 0;
+}
+
+/* Knapp */
+.modal-content .btn-primary {
+  max-width: 330px;
+  width: 100%;
+}
+
+/* "Har du ikke konto" teksten */
+.auth-bunntekst {
+  text-align: center;
+  width: 100%;
 }

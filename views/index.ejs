@@ -6,6 +6,7 @@
   <title>Understory Toplist</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="/JS/login.js" defer></script>
+  <script src="/JS/filters.js" defer></script>
 </head>
 <body>
   <div class="page">
@@ -28,6 +29,26 @@
 
     <!-- Innhold -->
     <main class="main">
+      <div class="filter-bar">
+      <!--filterbar, venstre, (tidsperiode)-->
+      <div class="filter-left">
+        <div class="filter-left">Filtrer etter:</div>
+        <button class="pill <%= period === '1M' ? 'pill-active' : '' %>" data-period="1M">Denne måneden</button>
+        <button class="pill <%= period === '3M' ? 'pill-active' : '' %>" data-period="3M">De siste 3 månedene</button>
+        <button class="pill <%= period === '6M' ? 'pill-active' : '' %>" data-period="6M">De siste 6 månedene</button>
+        <button class="pill <%= period === '1Y' ? 'pill-active' : '' %>" data-period="1Y">De siste 12 månedene</button>
+      </div>
+
+      <!--høyre, KPI vi sorterer etter-->
+
+      <div class="filters-right">
+        <button class="pill small <%= sort === 'revenue' ? 'pill-active' : '' %>" data-sort="revenue">Høyest omsetning</button>
+        <button class="pill small <%= sort === 'bookings' ? 'pill-active' : '' %>" data-sort="bookings">Flest bookinger</button>
+        <button class="pill small <%= sort === 'clicks' ? 'pill-active' : '' %>" data-sort="clicks">Flest annonseklikk</button>
+        <button class="pill small <%= sort === 'visits' ? 'pill-active' : '' %>" data-sort="visits">Flest besøkende</button>
+      </div>
+      </div>
+
       <% if (loggedIn) { %>
 
         <!-- Når bruker er innlogget -->
@@ -48,8 +69,19 @@
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
                   <span class="title"><%= company.name %></span>
-                  <span class="score">Score: <%= company.score %></span>
-                </li>
+
+                  <% if (sort === 'revenue') { %>
+                    <span class="metric">Omsetning: <%= company.revenue %> DKK</span>
+                  <% } else if (sort === 'bookings') { %>
+                    <span class="metric">Bookinger: <%= company.bookings %></span>
+                  <% } else if (sort === 'clicks') { %>
+                    <span class="metric">Annonseklikk: <%= company.clicks %></span>
+                  <% } else if (sort === 'visits') { %>
+                    <span class="metric">Besøkende: <%= company.visits %></span>
+                  <% } else { %>
+                    <span class="metric">Score: <%= company.score %></span>
+                  <% } %>
+                  </li>
               <% }); %>
             </ul>
           <% } else { %>
