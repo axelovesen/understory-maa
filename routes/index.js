@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
     const sort = req.query.sort || 'score';
-    const companies = await getCompanies();
+    const companies = await getCompanies(sort);
 
     res.render('index', {
       title: 'Understory Toplist',
