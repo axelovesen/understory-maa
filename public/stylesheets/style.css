@@ -1,3 +1,4 @@
+/* RESET */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,440 +7,235 @@
 
 html, body {
   min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: #dde8cf;         
-  color: #111;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #ddeac5; /* lys grønnish ala Understory */
+  color: #142015;
 }
 
-body {
-  line-height: 1.4;
-}
-
-/* Wrapper rundt hele siden */
+/* PAGE WRAPPER */
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/*Navn*/
+/* HEADER – Understory stil */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 32px;
-  background: #d3dfc2;
-  border-bottom: 1px solid #c2ceb1;
+  padding: 14px 40px;
+  background: #ddeac5;
+  border-bottom: 1px solid rgba(14, 45, 24, 0.12);
 }
 
 .site-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  color: #24331b;
+  letter-spacing: 0.03em;
 }
 
-.site-nav {
+/* Nav-knapper øverst til høyre */
+.site-nav,
+.site-nav > div {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.site-nav a,
-.site-nav button {
-  font-size: 0.95rem;
-}
-
-/* Knapper generelt */
-
 .btn {
-  padding: 0.5rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid transparent;
+  padding: 8px 22px;
+  font-size: 15px;
+  border: 1px solid #142015;
+  background: transparent;
   cursor: pointer;
-  font-size: 0.95rem;
   font-weight: 500;
-  text-decoration: none;
-  background: #f5f5f5;
-  color: #111;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.05s ease;
 }
 
-/* Skjult knapp */
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* primær login-knapp (lys gul med blå outline som hos Understory) */
 .btn-skjult {
-  background: transparent;
-  border-color: #24331b;
-  color: #24331b;
+  background: #ddeac5;
+  border-color: #4064ff;
+  box-shadow: 0 0 0 2px #ddeac5, 0 0 0 3px #4064ff;
 }
 
-/* outline */
+.btn-skjult:hover {
+  background: #f4f7e5;
+}
+
+/* sekundær "Registrer deg" */
 .btn-outline {
-  background: transparent;
-  border: 2px solid #24331b;
-  color: #24331b;
+  background: #ddeac5;
+  border-color: #142015;
 }
 
 .btn-outline:hover {
-  background: #e6efd7;
+  background: #182c15;
+  color: #f7f7f0;
 }
 
-/* kanpp */
-.btn-primary {
-  background: #183a15;
-  color: #f6ffef;
-  border: none;
-}
-
-.btn-primary:hover {
-  background: #0f2a0e;
-}
-
-/* Fyller ut hele bredden */
-.btn-block {
-  width: 100%;
-  text-align: center;
-}
-
-.btn-link {
-  background: none;
-  border: none;
-  color: #1d4ed8;
-  padding: 0;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 0.9rem;
-}
-
-/*Layout*/
-
-.main-content {
+/* MAIN LAYOUT */
+.main {
   flex: 1;
-  padding: 40px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 24px 40px 40px;
 }
 
-/*Intro*/
-
-.intro {
-  margin-bottom: 32px;
-  padding: 0 4px;
+.welcome-section h2 {
+  font-size: 30px;
+  margin-bottom: 8px;
 }
 
-.intro-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f321a;
+.welcome-section p {
+  font-size: 16px;
+  max-width: 680px;
+  margin-bottom: 24px;
 }
 
-.intro-subtitle {
-  font-size: 1rem;
-  color: #364d2c;
-  margin-top: 6px;
-  max-width: 600px;
-}
-
-/*Alternativ hero*/
-.ust-hero {
-  margin-bottom: 32px;
-}
-
-.ust-hero-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #1f321a;
-}
-
-.ust-hero-subtitle {
-  margin-top: 8px;
-  font-size: 1rem;
-  max-width: 640px;
-  color: #364d2c;
-  line-height: 1.5;
-}
-
-/* Grid for venstre (toplist)*/
-
-.grid {
-  background: #f7f7e8;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
-
-/* Hvis du senere vil ha to kolonner, kan du gjøre:
-    .grid { display:grid; grid-template-columns:2fr 1fr; gap:24px; }
-    og flytte info-card inn i samme grid. */
-
-/* Tekst over venstresiden */
-
-.venstre-title {
-  font-size: 1.4rem;
-  font-weight: 600;
+.toplist-section h2 {
+  font-size: 22px;
   margin-bottom: 4px;
-  color: #2b3d23;
 }
 
-.venstre-subtitle {
-  font-size: 0.95rem;
-  color: #4c6040;
-  margin-bottom: 16px;
+.section-subtitle {
+  font-size: 15px;
+  color: #4d5a4f;
 }
 
-/* Topliste /liste wrapper*/
 
-.list-wrapper {
-  max-height: 380px;
-  overflow-y: auto;
-  padding-right: 6px;
-}
-
-.list {
+/* TOPLIST CARD */
+.toplist {
+  margin-top: 12px;
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fdfdf8;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(11, 38, 21, 0.12);
 }
 
-.list-item {
+/* "header"-linje – valgfritt */
+.toplist-header {
   display: grid;
-  grid-template-columns: 32px 1fr auto;
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 10px;
+  grid-template-columns: 60px 2fr 1fr;
+  padding: 10px 20px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a8377;
+  background: rgba(229, 238, 207, 0.9);
+}
+
+/* hver rad */
+.toplist-item {
+  display: grid;
+  grid-template-columns: 60px 2fr 1fr;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  padding: 10px 20px;
+  font-size: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-/* Rank-tallet */
-.rank {
-  font-weight: 700;
-  color: #7a8765;
-  text-align: right;
+.toplist-item:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.8);
 }
 
-/* Selskapsnavn */
-.title {
+.toplist-item:nth-child(even) {
+  background: rgba(246, 250, 235, 0.9);
+}
+
+.toplist-item:hover {
+  background: #ffffff;
+}
+
+/* kolonnene */
+.toplist-item .rank {
+  font-weight: 600;
+  color: #7a8377;
+}
+
+.toplist-item .title {
   font-weight: 500;
-  color: #1f321a;
 }
 
-/* Score */
-.score {
-  font-weight: 700;
-  color: #2b3d23;
+.toplist-item .score {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #1d3b24;
 }
 
-/* Blur når bruker ikke er innlogget */
-.blurred {
-  filter: blur(6px);
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Info*/
-
-.info-card {
-  background: #fffbd2;
-  padding: 20px;
-  border-radius: 16px;
-  margin-top: 20px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-}
-
-.info-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #1f321a;
-}
-
-.info-subtitle {
-  color: #4c6040;
-  font-size: 0.95rem;
-  line-height: 1.45;
-  margin-bottom: 16px;
-}
-
-/* mer knapper */
-
-.cta-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* wrapper for login/signup-sider (ikke modal) */
-.auth-side {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-}
-
-.auth-nøkkel {
-  background: #1a1a1a;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 420px;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-.auth-nøkkel h1 {
-  margin: 0 0 0 0.5rem;
-  font-size: 1.7rem;
-  color: #fff;
-}
-
-.auth-underTitel {
-  margin: 0.5rem 0 1.5rem 0.5rem;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-/* input i auth-form */
-
-.auth-form .auth-group {
-  margin-bottom: 1rem;
-}
-
-.auth-form label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-size: 0.9rem;
-  color: #ddd;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #444;
-  border-radius: 6px;
-  background: #2b2b2b;
-  color: #eee;
-  font-size: 1rem;
-}
-
-.auth-form input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Auth-bunntekst (tekst under form) */
-
-.auth-bunntekst {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-  color: #ccc;
-}
-
-/* Error-melding */
-
-.error-message {
-  background: #5a0000;
-  border: 1px solid #ff4d4d;
-  color: #ffcccc;
-  padding: 0.8rem;
-  border-radius: 6px;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-}
-
-.toplist-card {
-  background: #f7f7e8;
-  position: relative;
-  padding: 1.5rem;
-  border-radius: 16px;
-  color: #1f321a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  margin-bottom: 1rem;
-}
-
-.toplist-card table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.toplist-card th,
-.toplist-card td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #dde3cf;
-}
-
-.toplist-card th {
-  background: #e6efd7;
-  font-weight: 600;
-}
-
-.toplist-card td {
-  background: #ffffff;
-}
-
-/*Login signup*/
-
-/* Enkel modal-styling (overlay) */
+/* MODAL BACKDROP */
 .modal {
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
+  background: rgba(7, 18, 10, 0.7);
+  z-index: 50;
 }
 
-/* Skjul modaler som har .hidden */
 .modal.hidden {
   display: none;
 }
 
+/* MODAL CARD */
 .modal-content {
-  background: #222;
-  padding: 1.5rem;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 100%;
-  color: #fff;
-  position: relative;
+  width: min(450px, 100% - 32px);
+  background: #141414;
+  border-radius: 24px;
+  padding: 24px 26px 26px;
+  color: #f8f8f4;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
 }
 
-/* Lukkeknapp (X) i modalen */
-.modal-content .close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 1.4rem;
+.modal-content h2 {
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.modal-content input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #3a3a3a;
+  background: #1f1f1f;
+  color: #f5f5f5;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+/* primær knapp i modal */
+.btn-primary.btn-block {
+  width: 100%;
+  background: #103014;
+  color: #f5f7ef;
+  border-radius: 999px;
+  border: 1px solid #1b4b20;
+  margin-top: 8px;
+}
+
+.btn-primary.btn-block:hover {
+  background: #18551e;
+}
+
+.close {
+  float: right;
+  font-size: 22px;
   cursor: pointer;
-}
-
-/* Inputs i modal-form */
-
-#loginForm input,
-#signupForm input {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: #2b2b2b;
-  color: #eee;
-}
-
-/*blurry overlay*/
-
-.blurry-layover {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
 }
