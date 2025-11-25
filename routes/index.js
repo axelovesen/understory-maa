@@ -26,9 +26,9 @@ function buildPeriodCondtition(period) {
   }
 }
 
-async function getCompanies(sort = 'score', period = '12M') {
+async function getCompanies(sort = 'score', period = '1Y') {
   const sortColumn = SORT_COLUMNS[sort] || 'score';
-  const periodFactor = buildPeriodCondtition(period);
+  const periodCondition = buildPeriodCondtition(period);
   
   const [rows] = await pool.query(
     `SELECT c.id, c.name,
@@ -39,7 +39,7 @@ async function getCompanies(sort = 'score', period = '12M') {
       AVG(k.score) AS score
     FROM companies c
     JOIN kpis k ON c.id = k.company_id
-    WHERE ${periodFactor}
+    WHERE ${periodCondition}
     GROUP BY c.id
     ORDER BY ${sortColumn} DESC`
   );
@@ -50,8 +50,8 @@ async function getCompanies(sort = 'score', period = '12M') {
 router.get('/', async (req, res) => {
   try {
     const sort = req.query.sort || 'score';
-    const period = req.query.period || '12M';
-    const companies = await getCompanies(sort);
+    const period = req.query.period || '1Y';
+    const companies = await getCompanies(sort, period);
 
     res.render('index', {
       title: 'Understory Toplist',
@@ -62,11 +62,14 @@ router.get('/', async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    const sort = req.query.sort || 'score';
+    const period = req.query.period || '1Y';
+
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
-      sort: req.query.sort || 'score',
-      period: req.query.period || '12M',
+      sort,
+      period,
       loggedIn: !!req.session.user,
     });
   }
@@ -76,8 +79,8 @@ router.get('/', async (req, res) => {
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
     const sort = req.query.sort || 'score';
-    const period = req.query.period || '12M';
-    const companies = await getCompanies(sort);
+    const period = req.query.period || '1Y';
+    const companies = await getCompanies(sort, period);
 
     res.render('index', {
       title: 'Understory Toplist',
