@@ -1,8 +1,8 @@
 function auth(req, res, next) {
-  if (!req.session.userId) {
-    return res.redirect('/login');
+  if (!req.session.userId && res.session.user) {
+    return next();
   }
-  next();
+  return res.redirect('/');
 }
 
 module.exports = { auth };

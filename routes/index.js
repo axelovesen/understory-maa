@@ -76,7 +76,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// /understory-toplist – kun for innloggede (kan bruke samme view)
+// /understory-toplist - kun for innloggede (kan bruke samme view)
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
     const companies = await getCompanies();
@@ -93,5 +93,3 @@ router.get('/understory-toplist', auth, async (req, res) => {
 });
 
 module.exports = router;
-
-//MÅ SE OVER Å GJØRE MINDRE CHAT
