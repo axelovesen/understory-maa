@@ -97,6 +97,44 @@
         </section>
       <% } else { %>
         <p claas="locked-text">Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
+
+        <!-- Når bruker IKKE er innlogget -->
+        <section class="welcome-section">
+          <h2>Velkommen til Understory Toplist!</h2>
+          <p>For å få full tilgang til Understory toplist, vennligst logg inn eller registrer deg.</p>
+        </section>
+
+        <section class="toplist-section">
+          <h2>Utforsk Understory Toplist</h2>
+          <p class="section-subtitle">
+            Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
+          </p>
+
+          <% if (companies && companies.length > 0) { %>
+            <ul class="toplist">
+              <% companies.forEach(function(company, index) { %>
+                <li class="toplist-item">
+                  <span class="rank"><%= index + 1 %></span>
+                  <span class="title"><%= company.name %></span>
+
+                  <% if (sort === 'revenue') { %>
+                    <span class="metric">Omsetning: <%= company.revenue %> DKK</span>
+                  <% } else if (sort === 'bookings') { %>
+                    <span class="metric">Bookinger: <%= company.bookings %></span>
+                  <% } else if (sort === 'clicks') { %>
+                    <span class="metric">Annonseklikk: <%= company.clicks %></span>
+                  <% } else if (sort === 'visits') { %>
+                    <span class="metric">Besøkende: <%= company.visits %></span>
+                  <% } else { %>
+                    <span class="metric">Score: <%= company.score %></span>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
+          <% } else { %>
+            <p>Ingen selskaper på topplisten enda.</p>
+          <% } %>
+        </section>
       <% } %>
       </section>
     </main>
