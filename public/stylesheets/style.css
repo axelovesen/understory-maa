@@ -134,33 +134,46 @@ body {
 
 /* Piller/valgknapper */
 
+/* ---- FILTER PILLS (premium design) ---- */
+
 .pill {
-  padding: 6px 14px;
+  padding: 10px 18px;
   border-radius: 999px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  font-size: 12px;
+  border: 1.5px solid #d1d5db;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 150ms ease-out, border-color 150ms ease-out,
-    transform 150ms ease-out, box-shadow 150ms ease-out;
+  transition: 
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.7);
 }
 
-.pill.small {
-  font-size: 11px;
-  padding: 5px 12px;
-}
-
+/* Hover = elegant løft */
 .pill:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+  background: #f8fafc;
+  border-color: #c0c7d1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
 }
 
+/* Aktive knapper */
 .pill-active {
   background: #111827;
   color: #ffffff;
   border-color: #111827;
+  box-shadow: 0 4px 14px rgba(17,24,39,0.25);
+}
+
+.pill-active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(17,24,39,0.35);
 }
 
 .toplist {
