@@ -10,36 +10,44 @@ const twilioClient = twilio(
 );
 const verifyServiceSid = process.env.TWILIO_VERIFY_SID;
 
-//Registrer (GET)
-router.get('/signup', (req, res) => {
-  res.render('signup', { error: null });
-});
-
 // Registrer (POST) – brukt av fetch i login.js
 router.post('/signup', async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { email, phone, password } = req.body;
 
   try {
-    if (!email || !password || !phone) {
-      return res.render('signup', { error: 'E-post, telefonnummer og passord må fylles inn.' });
+    if (!email || !phone || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'E-post, telefonnummer og passord må fylles inn her',
+      });
     }
 
-    const [existing] = await pool.query(
+    const [existingEmail] = await pool.query(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
 
-    if (existing.length > 0) {
+    if (existingEmail.length > 0) {
       return res
         .status(400)
         .json({ success: false, message: 'E-post er allerede i Bruk' });
     }
 
+    const [existingPhone] = await pool.query(
+      'SELECT * FROM users WHERE phone = ?',
+      [phone]
+    );
+    if (existingPhone.length > 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'Telefonnummer er allerede i bruk' });
+    }
+
     const hash = await bcrypt.hash(password, 10);
     
     await pool.query(
-      'INSERT INTO users (name, email, phone, password_hash) VALUES (?, ?, ?, ?)',
-      [name, email, phone, hash] //4 verdier
+      'INSERT INTO users (email, phone, password_hash) VALUES (?, ?, ?)',
+      [email, phone, hash] //4 verdier
     );
 
     return res.json({
@@ -63,28 +71,29 @@ router.get('/login', (req, res) => {
 
 // Login (POST)
 router.post('/login', async (req, res) => {
-  const { email, phone, password } = req.body;
-
   try {
-    if (!email || !phone || !password) {
+
+    const { email, password } = req.body;
+
+    if (!email || !password) {
       return res
         .status(400)
-        .json({ success: false, message: 'E-post, telefonnummer og passord må fylles inn her' });
+        .json({ success: false, message: 'E-post og passord må fylles inn her' 
+        });
     }
 
     const [rows] = await pool.query(
-      'SELECT * FROM users WHERE email = ?',
+      'SELECT id, email, phone, password_hash FROM users WHERE email = ?',
       [email]
     );
 
     if (rows.length === 0) {
       return res
         .status(400)
-        .json({ success: false, message: 'Feil e-post, telefonnummer eller passord' });
+        .json({ success: false, message: 'Feil e-post eller passord' });
     }
 
     const user = rows[0];
-    
     const match = await bcrypt.compare(password, user.password_hash);
     if (!match) {
       return res
@@ -92,6 +101,7 @@ router.post('/login', async (req, res) => {
         .json({ success: false, message: 'Feil e-post eller passord' });
     }
 
+    //lagrer brukeren i session for 2FA
     req.session.pendingUserId = user.id;
     req.session.pendingUserPhone = user.phone;
 
@@ -104,59 +114,47 @@ router.post('/login', async (req, res) => {
         channel: 'sms'
       });
 
-      //send bruker videre til 2FA-siden
-      return res.redirect('/2fa');
-    } catch (error){
-      console.error(error);
-      res.render('login', {error: 'Noe gikk galt under innloggingen'});
+      //send bruker videre til 2FA-siden, sier ifra til frontend
+    return res.json({ success: true, requires2FA: true, message: 'kode sendt til telefon'
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Noe gikk galt under innloggingen.',
+     });
     }
   });
 
   //2fa (GET)
-  router.get('/2fa', (req, res)=>{
-    //sjekk at vi har pendingUserId i session
-    if(!req.session.pendingUserId){
-      return res.redirect('/login');
-    }
-
-    res.render('2fa', {error: null});
-  });
-
-  //2fa (POST)
-  router.post('/2fa', async (req, res)=>{
-    const code = req.body.code;
-
-    try{
-      const result = await twilioClient.verify.v2
-      .services(verifyServiceSid)
-      .verificationChecks
-      .create({
-        to: req.session.pendingUserPhone,
-        code: code 
-      });
-
-      if(result.status === 'approved'){
-        //nå logger vi inn ordentlig
-        req.session.user = {
-          id: req.session.pendingUserId
-          // evt. legge til navn og email hvis det trengs senere
-        };
-
-        //rydd opp 
-        delete req.session.pendingUserId;
-        delete req.session.pendingUserPhone;
-
-        //redirect til toplist
-        return res.redirect('/understory-toplist');
+  router.post('/2fa', async (req, res) => {
+    try {
+      const { code } = req.body;
+      if (!req.session.pendingUserId || !req.session.pendingUserPhone) {
+        return res.status(400).json({ success: false, message: 'Ingen 2FA forespørsel gående' });
       }
+    const result = await twilioClient.verify.v2.services(verifyServiceSid).verificationChecks.create({ to: req.session.pendingUserPhone, code: code });
 
-      return res.render('2fa', {error: 'Feil kode, Prøv igjen.' });
-
-    }catch (error){
-      console.error(error);
-      return res.render('2fa', {error: 'Noe gikk galt, prøv igjen '});
+    if (result.status !=='approved'){
+      return res.status(400).json({ success: false, message: 'Ugyldig kode' });
     }
-  })
+
+    //2FA ok , logg inn
+    req.session.user = {
+      id: req.session.pendingUserId
+    };
+
+    //Rydder så opp
+    delete req.session.pendingUserId;
+    delete req.session.pendingUserPhone;
+
+    return res.json({ success: true, message: 'Innlogging vellykket', redirect: '/understory-toplist' });
+
+  }catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: 'Noe gikk galt under 2FA' });
+  }
+});
 
   router.get('/logout', (req, res) => {
     req.session.destroy(() => {

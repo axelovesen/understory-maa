@@ -27,25 +27,24 @@
     </header>
 
     <!-- Innhold -->
-    <main class="main-content">
-      
+    <main class="main">
+      <% if (loggedIn) { %>
         <!-- Når bruker er innlogget -->
-        <section class="intro">
-          <h2 class="intro-title">Se hvilke opplevelser som leverer best</h2>
-          <p class="intro-subtitle">Du er nå logget inn og kan se hele topplisten.</p>
+        <section class="welcome-section">
+          <h2>Velkommen tilbake til Understory Toplist!</h2>
+          <p>Du er nå logget inn og kan se hele topplisten.</p>
         </section>
 
-        <article class="grid">
-          <h3 class="venstre-title">Utforsk Understory Toplist</h3>
-          <p class="venstre-subtitle">
+        <section class="toplist-section">
+          <h2>Utforsk Understory Toplist</h2>
+          <p class="section-subtitle">
             Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
           </p>
-          
-          <div class="list-wrapper <%= loggedIn ? '' : 'blurred' %>">
+
           <% if (companies && companies.length > 0) { %>
-            <ul class="list">
+            <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
-                <li class="list-item">
+                <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
                   <span class="title"><%= company.name %></span>
                   <span class="score">Score: <%= company.score %></span>
@@ -55,33 +54,37 @@
           <% } else { %>
             <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
           <% } %>
-          </div>
-        </article>
+        </section>
 
-        <!--Høyre (info) avhengig login status-->
-        <% if (loggedIn) { %>
-          <article class="info-card">
-            <h3 class="info-title">Logg in for å se tallene</h3>
-            <p class="info-subtitle">
-              Opprett en konto eller logg inn for å se full statistikk på de best preseternde produktene hos understory kundene, og for å få et bedre grunnlag for hvilke opplevelser som fungerer for dere.
-            </p>
-            <div class="cta-buttons">
-              <button id="openSignupInfo" class="btn btn-primary btn-block">Registrer deg</button>
-              <button id="openLoginInfo" class="btn btn-outline btn-block">Logg inn</button>
-            </div>
-          </article>
+      <% } else { %>
+        <!-- Når bruker IKKE er innlogget -->
+        <section class="welcome-section">
+          <h2>Velkommen til Understory Toplist!</h2>
+          <p>For å få full tilgang til Understory toplist, vennligst logg inn eller registrer deg.</p>
+        </section>
+
+        <section class="toplist-section">
+          <h2>Utforsk Understory Toplist</h2>
+          <p class="section-subtitle">
+            Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
+          </p>
+
+          <% if (companies && companies.length > 0) { %>
+            <ul class="toplist">
+              <% companies.forEach(function(company, index) { %>
+                <li class="toplist-item">
+                  <span class="rank"><%= index + 1 %></span>
+                  <span class="title"><%= company.name %></span>
+                  <span class="score">Score: <%= company.score %></span>
+                </li>
+              <% }); %>
+            </ul>
           <% } else { %>
-          <article class="info-card">
-            <h3 class="info-title">Du er innlogget</h3>
-            <p class="info-subtitle">
-              Du har nå full tilgang til Understory toplist, utforsk dataene og se hvilke opplevelser som presterer best!
-            </p>
-            <div class="cta-buttons">
-              <a href="/understory-toplist" class="btn btn-primary btn-block">Gå til full Toppliste</a>
-            </div>
-          </article>
-
-
+            <p>Ingen selskaper på topplisten enda.</p>
+          <% } %>
+        </section>
+      <% } %>
+    </main>
 
     <!-- Login-modal -->
     <div id="loginModal" class="modal hidden">
@@ -119,5 +122,3 @@
   </div>
 </body>
 </html>
-
-<!--MÅ SE OVER OG GJØRE MINDRE CHAT-->
