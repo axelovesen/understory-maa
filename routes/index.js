@@ -12,27 +12,48 @@ const SORT_COLUMNS = {
   visits: 'visits', 
   score: 'score',};
 
-async function getCompanies(sort = 'score') {
+const PERIODS = {
+  '1M':0.25,
+  '3M':0.5,
+  '6M':0.75,
+  '12M':1,
+};
+
+async function getCompanies(sort = 'score', period = '12M') {
   const sortColumn = SORT_COLUMNS[sort] || 'score';
+  const periodFactor = PERIODS[period] || 1;
 
   const [rows] = await pool.query(
     `SELECT id, name, revenue, bookings, clicks, visits, 
     score FROM companies ORDER BY ${sortColumn} DESC LIMIT 10`
   );
-  return rows;
+  // Juster score basert på periode
+  const companies = rows.map(company => {
+    const revenueNumber = Number(company.revenue)
+    return {
+      ...company,
+      score: Math.round(company.score * periodFactor * 100) / 100,
+      revenue: isNaN(revenueNumber) ? company.revenue : Math.round(revenueNumber * periodFactor * 100) / 100,
+      bookings: Math.round(company.bookings * periodFactor * 100) / 100,
+      clicks: Math.round(company.clicks * periodFactor * 100) / 100,
+      visits: Math.round(company.visits * periodFactor * 100) / 100,
+    };
+  });
+  return companies;
 }
 
 // Henter hjemmesiden
 router.get('/', async (req, res) => {
   try {
     const sort = req.query.sort || 'score';
+    const period = req.query.period || '12M';
     const companies = await getCompanies(sort);
 
     res.render('index', {
       title: 'Understory Toplist',
       companies,
       sort,
-      period: null,
+      period,
       loggedIn: !!req.session.user,
     });
   } catch (error) {
@@ -40,8 +61,8 @@ router.get('/', async (req, res) => {
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
-      sort: 'score',
-      period: null,
+      sort: req.query.sort || 'score',
+      period: req.query.period || '12M',
       loggedIn: !!req.session.user,
     });
   }
@@ -51,13 +72,14 @@ router.get('/', async (req, res) => {
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
     const sort = req.query.sort || 'score';
+    const period = req.query.period || '12M';
     const companies = await getCompanies(sort);
 
     res.render('index', {
       title: 'Understory Toplist',
       companies,
       sort,
-      period: null,
+      period,
       loggedIn: true,
     });
   } catch (error) {

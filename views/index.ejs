@@ -29,6 +29,18 @@
 
     <!-- Innhold -->
     <main class="main">
+      <!-- Når bruker er innlogget -->
+      <section class="welcome-section">
+        <h2>Velkommen tilbake til Understory Toplist!</h2>
+        <p>Du er nå logget inn og kan se hele topplisten.</p>
+      </section>
+
+      <section class="toplist-section">
+        <h2>Utforsk Understory Toplist</h2>
+        <p class="section-subtitle">
+          Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
+        </p>
+
       <div class="filter-wrapper">
         <div class="filter-header">FILTRER ETTER:</div>
       <!--filterbar, venstre, (tidsperiode)-->
@@ -51,18 +63,13 @@
 
       <% if (loggedIn) { %>
 
-        <!-- Når bruker er innlogget -->
-        <section class="welcome-section">
-          <h2>Velkommen tilbake til Understory Toplist!</h2>
-          <p>Du er nå logget inn og kan se hele topplisten.</p>
-        </section>
-
-        <section class="toplist-section">
-          <h2>Utforsk Understory Toplist</h2>
-          <p class="section-subtitle">
-            Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
-          </p>
-
+      <!--Toppliste-->
+      <section class="toplist-section">
+        <h2>Utforsk Undertory Toplist</h2>
+        <p class="section-subtitle">
+          Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
+        </p>
+        
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
@@ -88,8 +95,8 @@
             <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
           <% } %>
         </section>
-
       <% } else { %>
+        <p claas="locked-text">Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
 
         <!-- Når bruker IKKE er innlogget -->
         <section class="welcome-section">
@@ -129,6 +136,7 @@
           <% } %>
         </section>
       <% } %>
+      </section>
     </main>
 
     <!-- Login-modal -->
