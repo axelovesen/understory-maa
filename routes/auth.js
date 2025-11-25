@@ -97,6 +97,13 @@ router.post('/login', async (req, res) => {
         .json({ success: false, message: 'Feil e-post eller passord' });
     }
 
+    if (!user.phone) {
+      return res.status(400).json({
+        success: false,
+        message: 'Det er ikke registrert telefonnummer på denne brukeren',
+      });
+    }
+
     //lagrer brukeren i session for 2FA
     req.session.pendingUserId = user.id;
     req.session.pendingUserPhone = user.phone;
@@ -117,11 +124,11 @@ router.post('/login', async (req, res) => {
       message: 'kode sendt til telefon'
     });
 
-  } catch (error) {
-    console.error(error);
+  } catch (twilioError) {
+    console.error('Twilio feil i /login:', twilioError);
     return res.status(500).json({
       success: false,
-      message: 'Noe gikk galt under innloggingen.',
+      message: 'kunne ikke sende sms kode. sjekk telefonnummeret eller kontakt administrator.',
      });
     }
   });
