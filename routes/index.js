@@ -17,17 +17,7 @@ async function getCompanies(sort = 'score') {
   const sortColumn = SORT_COLUMNS[sort] || 'score';
 
   const [rows] = await pool.query(
-    `SELECT c.id, c.name, c.logo_url,
-      SUM(k.revenue) AS revenue,
-      SUM(k.bookings) AS bookings,
-      SUM(k.clicks) AS clicks,
-      SUM(k.visits) AS visits,
-      AVG(k.score) AS score
-    FROM companies c
-    JOIN kpis k ON c.id = k.company_id
-    GROUP BY c.id
-    ORDER BY ${sortColumn} DESC
-    LIMIT 10`
+    `SELECT id, name, revenue, bookings, clicks, visits, score FROM companies ORDER BY ${sortColumn} DESC LIMIT 10`
   );
   return rows;
 }
