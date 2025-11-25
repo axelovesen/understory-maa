@@ -43,7 +43,7 @@
 
       <div class="filters-right">
         <button class="pill small <%= sort === 'revenue' ? 'pill-active' : '' %>" data-sort="revenue">Høyest omsetning</button>
-        <button class="pill small <%= sort === 'growth' ? 'pill-active' : '' %>" data-sort="bookings">Flest bookinger</button>
+        <button class="pill small <%= sort === 'bookings' ? 'pill-active' : '' %>" data-sort="bookings">Flest bookinger</button>
         <button class="pill small <%= sort === 'clicks' ? 'pill-active' : '' %>" data-sort="clicks">Flest annonseklikk</button>
         <button class="pill small <%= sort === 'visits' ? 'pill-active' : '' %>" data-sort="visits">Flest besøkende</button>
       </div>
@@ -79,7 +79,8 @@
                     <span class="metric">Besøkende: <%= company.visits %></span>
                   <% } else { %>
                     <span class="metric">Score: <%= company.score %></span>
-                </li>
+                  <% } %>
+                  </li>
               <% }); %>
             </ul>
           <% } else { %>

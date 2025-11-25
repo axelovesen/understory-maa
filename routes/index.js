@@ -5,14 +5,16 @@ const auth = require('../middleware/auth');
 
 //henter hvilke KPI brukeren kan sortere etter
 
-const SORT_COLUMNS = ['revenue', 'bookings', 'clicks', 'visits', 'score',];
+const SORT_COLUMNS = {
+  revenue: 'revenue', 
+  bookings: 'bookings', 
+  clicks: 'clicks', 
+  visits: 'visits', 
+  score: 'score',};
 
-async function getCompanies(sort) {
-  let sortColumn = 'score'; //det den faller tilbakepå
+async function getCompanies(sort = 'score') {
 
-  if (SORT_COLUMNS.includes(sort)) {
-    sortColumn = sort;
-  }
+  const sortColumn = SORT_COLUMNS[sort] || 'score';
 
   const [rows] = await pool.query(
     `SELECT c.id, c.name, c.logo_url,
@@ -28,7 +30,6 @@ async function getCompanies(sort) {
     LIMIT 10`
   );
   return rows;
-  
 }
 
 // Henter hjemmesiden
