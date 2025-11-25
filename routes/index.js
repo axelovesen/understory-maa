@@ -12,7 +12,7 @@ const SORT_COLUMNS = {
   visits: 'visits', 
   score: 'score',};
 
-function buildPeriodCondtition(period) {
+function buildPeriodCondition(period) {
   switch (period) {
     case '1M':
       return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
@@ -20,9 +20,9 @@ function buildPeriodCondtition(period) {
       return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)";
     case '6M':
       return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)";
-    case '12M':
+    case '1Y':
     default:
-      return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)";
+      return "1=1";
   }
 }
 
