@@ -13,11 +13,11 @@ const SORT_COLUMNS = {
   score: 'score',};
 
 async function getCompanies(sort = 'score') {
-
   const sortColumn = SORT_COLUMNS[sort] || 'score';
 
   const [rows] = await pool.query(
-    `SELECT id, name, revenue, bookings, clicks, visits, score FROM companies ORDER BY ${sortColumn} DESC LIMIT 10`
+    `SELECT id, name, revenue, bookings, clicks, visits, 
+    score FROM companies ORDER BY ${sortColumn} DESC LIMIT 10`
   );
   return rows;
 }
@@ -25,11 +25,14 @@ async function getCompanies(sort = 'score') {
 // Henter hjemmesiden
 router.get('/', async (req, res) => {
   try {
-    const companies = await getCompanies();
+    const sort = req.query.sort || 'score';
+    const companies = await getCompanies(sort);
 
     res.render('index', {
       title: 'Understory Toplist',
       companies,
+      sort,
+      period: null,
       loggedIn: !!req.session.user,
     });
   } catch (error) {
@@ -37,6 +40,8 @@ router.get('/', async (req, res) => {
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
+      sort: 'score',
+      period: null,
       loggedIn: !!req.session.user,
     });
   }
@@ -45,11 +50,14 @@ router.get('/', async (req, res) => {
 // /understory-toplist - kun for innloggede (kan bruke samme view)
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
+    const sort = req.query.sort || 'score';
     const companies = await getCompanies();
 
     res.render('index', {
       title: 'Understory Toplist',
       companies,
+      sort,
+      period: null,
       loggedIn: true,
     });
   } catch (error) {
