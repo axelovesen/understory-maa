@@ -3,20 +3,25 @@ var router = express.Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 
-// Registrer (GET) – brukt hvis noen går direkte til /signup
+const twilio = require('twilio');
+const twilioClient = twilio(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
+const verifyServiceSid = process.env.TWILIO_VERIFY_SID;
+
+//Registrer (GET)
 router.get('/signup', (req, res) => {
   res.render('signup', { error: null });
 });
 
 // Registrer (POST) – brukt av fetch i login.js
 router.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password, phone } = req.body;
 
   try {
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'E-post og passord må fylles in' });
+      return res.render('signup', { error: 'E-post og passord må fylles inn.' });
     }
 
     const [existing] = await pool.query(
@@ -31,15 +36,17 @@ router.post('/signup', async (req, res) => {
     }
 
     const hash = await bcrypt.hash(password, 10);
+    
     await pool.query(
-      'INSERT INTO users (email, password_hash) VALUES (?, ?)',
-      [email, hash]
+      'INSERT INTO users (name, email, phone, password_hash) VALUES (?, ?, ?, ?)',
+      [name, email, phone, hash] //4 verdier
     );
 
     return res.json({
       success: true,
       message: 'Bruker opprettet. Du kan logge inn.',
     });
+
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -77,6 +84,7 @@ router.post('/login', async (req, res) => {
     }
 
     const user = rows[0];
+    
     const match = await bcrypt.compare(password, user.password_hash);
     if (!match) {
       return res
@@ -84,13 +92,75 @@ router.post('/login', async (req, res) => {
         .json({ success: false, message: 'Feil e-post eller passord' });
     }
 
-    // lagre bruker i session
-    req.session.user = { id: user.id, email: user.email };
+    req.session.pendingUserId = user.id;
+    req.session.pendingUserPhone = user.phone;//krever phone kolonne i db
 
-    return res.json({
-      success: true,
-      redirect: '/understory-toplist',
-    });
+    //send sms med kode via twilio verify 
+    await twilioClient.verify.v2
+      .services(verifyServiceSid)
+      .verifications
+      .create({
+        to: user.phone,  //fx - '+47XXXXXXXX'
+        channel: 'sms'
+      });
+
+      //send bruker videre til 2FA-siden
+      return res.redirect('/2fa');
+    } catch (error){
+      console.error(error);
+      res.render('login', {error: 'Noe gikk galt under innloggingen'});
+    }
+  });
+
+  //2fa (GET)
+  router.get('/2fa', (req, res)=>{
+    //sjekk at vi har pendingUserId i session
+    if(!req.session.pendingUserId){
+      return res.redirect('/login');
+    }
+
+    res.render('2fa', {error: null});
+  });
+
+  //2fa (POST)
+  router.post('/2fa', async (req, res)=>{
+    const code = req.body.code;
+
+    try{
+      const result = await twilioClient.verify.v2
+      .services(verifyServiceSid)
+      .verificationChecks
+      .create({
+        to: req.session.pendingUserPhone,
+        code: code 
+      });
+
+      if(result.status === 'approved'){
+        //nå logger vi inn ordentlig
+        req.session.user = {
+          id: req.session.pendingUserId
+          // evt. legge til navn og email hvis det trengs senere
+        };
+
+        //rydd opp 
+        delete req.session.pendingUserId;
+        delete req.session.pendingUserPhone;
+
+        //redirect til toplist
+        return res.redirect('/understory-toplist');
+      }
+
+      return res.render('2fa', {error: 'Feil kode, Prøv igjen.' });
+
+    }catch (error){
+      console.error(error);
+      return res.render('2fa', {error: 'Noe gikk galt, prøv igjen '});
+    }
+  })
+
+
+    res.redirect('/understory-toplist');
+    /*
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -99,8 +169,7 @@ router.post('/login', async (req, res) => {
     });
   }
 });
-
-// Logout
+*/
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
@@ -109,4 +178,5 @@ router.get('/logout', (req, res) => {
 
 module.exports = router;
 
-//MÅ SE OVER Å GJØRE MINDRE CHAT
+
+
