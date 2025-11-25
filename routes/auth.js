@@ -20,8 +20,8 @@ router.post('/signup', async (req, res) => {
   const { name, email, password, phone } = req.body;
 
   try {
-    if (!email || !password) {
-      return res.render('signup', { error: 'E-post og passord må fylles inn.' });
+    if (!email || !password || !phone) {
+      return res.render('signup', { error: 'E-post, telefonnummer og passord må fylles inn.' });
     }
 
     const [existing] = await pool.query(
@@ -63,13 +63,13 @@ router.get('/login', (req, res) => {
 
 // Login (POST)
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, phone, password } = req.body;
 
   try {
-    if (!email || !password) {
+    if (!email || !phone || !password) {
       return res
         .status(400)
-        .json({ success: false, message: 'E-post og passord må fylles inn her' });
+        .json({ success: false, message: 'E-post, telefonnummer og passord må fylles inn her' });
     }
 
     const [rows] = await pool.query(
@@ -80,7 +80,7 @@ router.post('/login', async (req, res) => {
     if (rows.length === 0) {
       return res
         .status(400)
-        .json({ success: false, message: 'Feil e-post eller passord' });
+        .json({ success: false, message: 'Feil e-post, telefonnummer eller passord' });
     }
 
     const user = rows[0];
@@ -93,14 +93,14 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.pendingUserId = user.id;
-    req.session.pendingUserPhone = user.phone;//krever phone kolonne i db
+    req.session.pendingUserPhone = user.phone;
 
     //send sms med kode via twilio verify 
     await twilioClient.verify.v2
       .services(verifyServiceSid)
       .verifications
       .create({
-        to: user.phone,  //fx - '+47XXXXXXXX'
+        to: req.session.pendingUserPhone, //brukerens telefonnummer fra session
         channel: 'sms'
       });
 
@@ -158,18 +158,6 @@ router.post('/login', async (req, res) => {
     }
   })
 
-
-    res.redirect('/understory-toplist');
-    /*
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: 'Noe gikk galt under innloggingen.',
-    });
-  }
-});
-*/
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');

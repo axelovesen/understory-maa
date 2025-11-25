@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2FA login understory"</title>
+    <title>2FA login understory</title>
 </head>
 <body>
     <h1>Two-factor autentifisering</h1>
     <p>verifikasjons kode er sendt på SMS, skriv koden for å fullføre login.</p>
 
-    <% if (typeof error !== 'undefined') { %>
-        <p style="color: red;"><%= error %></p>
+    <% if (error) { %>
+        <p style="color: red; font-weight: bold;"><%= error %></p>
     <% } %>
 
     <form action="/2fa" method="POST">
         <label for="code">Verifikasjons kode</label>
-        <input id="code" name="code" type="text" required />
+        <input 
+            id="code" 
+            name="code" 
+            type="text" 
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
 
+            required />
+        <br></br>
         <button type="submit">Confirm</button>
     </form>
-    
 </body>
 </html>
