@@ -250,3 +250,81 @@ body {
     margin-top: 2px;
   }
 }
+
+/* -------- MODAL OVERRIDE FIX -------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 28px 32px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  position: relative;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Close X */
+.modal-content .close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Form */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.modal-content .btn-primary {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 0;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+}
+
+.error-message {
+  color: #dc2626;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.auth-bunntekst {
+  margin-top: 14px;
+  font-size: 14px;
+  text-align: center;
+}
