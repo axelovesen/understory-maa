@@ -328,3 +328,43 @@ body {
   font-size: 14px;
   text-align: center;
 }
+
+/* ---- CENTER MODAL CONTENT ---- */
+
+.modal-content {
+  text-align: center;
+}
+
+/* Sentrum-juster heading */
+.modal-content h2 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Inputfeltene skal fortsatt være full width, men sentrert i layouten */
+.modal-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* <– centrering */
+}
+
+/* Selve input-feltene */
+.modal-content input {
+  width: 100%;
+  max-width: 330px; /* <– hindrer dem i å være for brede */
+  margin: 6px 0;
+}
+
+/* Knapp */
+.modal-content .btn-primary {
+  max-width: 330px;
+  width: 100%;
+}
+
+/* "Har du ikke konto" teksten */
+.auth-bunntekst {
+  text-align: center;
+  width: 100%;
+}
