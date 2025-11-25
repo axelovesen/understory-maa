@@ -103,33 +103,33 @@ body {
   color: #6b7280;
 }
 
-.filter-bar {
-  margin-top: 20px;
-  margin-bottom: 20px;
+/* ---- FILTER WRAPPER - CENTER EVERYTHING ---- */
+
+.filter-wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;     /* <— midtstiller ALT */
+  gap: 12px;
 }
 
-/* Ytre container */
-.filter-left,
-.filters-right {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Teksten "Filtrer etter:" (indre .filter-left) */
-.filter-left .filter-left {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+.filter-header {
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.15em;
   color: #6b7280;
-  margin-right: 4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* <— midtstilling av knappene */
+  gap: 10px;
+  width: 100%;
+  max-width: 900px;
 }
 
 /* Piller/valgknapper */
