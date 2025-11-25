@@ -22,7 +22,6 @@ function buildPeriodCondition(period) {
       return "k.period_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)";
     case '1Y':
     default:
-      // "Siste 12 måneder" = bruk all tilgjengelig data
       return "1=1";
   }
 }
