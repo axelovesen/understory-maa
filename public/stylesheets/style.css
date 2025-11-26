@@ -155,12 +155,13 @@ body {
   background: rgba(255,255,255,0.7);
 }
 
-/* Hover = elegant løft */
+/* Hover  */
 .pill:hover {
   background: #f8fafc;
-  border-color: #c0c7d1;
+  border-color: #000000;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transform: translateY(-2px);
+  color: #000000;
 }
 
 /* Aktive knapper */
@@ -331,7 +332,7 @@ body {
 }
 
 .error-message {
-  color: #dc2626;
+  color: #e72020;
   margin-top: 6px;
   font-size: 14px;
 }
@@ -380,4 +381,18 @@ body {
 .auth-bunntekst {
   text-align: center;
   width: 100%;
+}
+
+.nav-link {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 6px;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #111827;
+  text-decoration: underline;
 }
