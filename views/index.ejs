@@ -10,18 +10,18 @@
 </head>
 <body>
   <div class="page">
-    <a href="/om_oss" class="nav-link">Om oss</a>
-
 
     <header class="site-header">
       <h1 class="site-title">Understory Toplist</h1>
 
       <% if (loggedIn) { %>
         <nav class="site-nav">
+          <a href="/om_oss" class="nav-link">Om oss</a>
           <a href="/logout" class="nav-button">Logg ut</a>
         </nav>
       <% } else { %>
         <div class="site-nav">
+          <a href="/om_oss" class="nav-link">Om oss</a>
           <button id="openLogin" class="btn btn-skjult">Logg inn</button>
           <button id="openSignup" class="btn btn-outline">Registrer deg</button>
         </div>
@@ -30,14 +30,18 @@
 
     <!-- Innhold -->
     <main class="main">
-      <!-- Når bruker er innlogget -->
+      <!-- Når bruker ikke er innlogget -->
       <section class="welcome-section">
+        <% if(!loggedIn) {%>
         <h2>Velkommen til Understory Toplist!</h2>
          <p>
           Understory Toplist viser de mest vellykede kundene til Understory.<br>
           Se hvilke kunder som skaper mest egasjement, flest bookinger og høyest omsetning.<br>
           Logg inn for å låse opp og se topplisten
         </p>
+        <%} else{%>
+          <h2>Nå har du full oversikt til Toplist</h2>
+          <%}%>
       </section>
 
       <section class="toplist-section">
@@ -103,7 +107,7 @@
         </section>
       <% } else { %>
 
-        <!-- Når bruker IKKE er innlogget -->
+        <!-- Når bruker er innlogget -->
         <section class="toplist-section">
           <h2>Utforsk Understory Toplist</h2>
           <p class="section-subtitle">
