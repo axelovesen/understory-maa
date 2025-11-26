@@ -483,3 +483,24 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
+
+.btn {
+  transition: all 0.2s ease;
+}
+
+.btn-skjult:hover {
+  background: #ffffff;
+  border-color: #94a3b8;
+  color: #111827;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.btn-outline:hover {
+  background: #000000;
+  border-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
