@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="page">
-    <a href="/views/om-oss" class="nav-link">Om oss</a>
+    <a href="/views/om_oss" class="nav-link">Om oss</a>
 
 
     <header class="site-header">
@@ -89,6 +89,20 @@
                   <% } else if (sort === 'visits') { %>
                     <span class="metric">
                       Besøkende: <%= company.visits %>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Omsetning: <%= Number(company.revenue).toLocaleString('nb-NO') %> DKK
+                    </span>
+                  <% } else if (sort === 'bookings') { %>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Bookinger: <%= Number(company.bookings).toLocaleString('nb-NO') %>
+                    </span>
+                  <% } else if (sort === 'clicks') { %>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Annonseklikk: <%= Number(company.clicks).toLocaleString('nb-NO') %>
+                    </span>
+                  <% } else if (sort === 'visits') { %>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Besøkende: <%= Number(company.visits).toLocaleString('nb-NO') %>
                     </span>
                   <% } else { %>
                     <span class="metric">
