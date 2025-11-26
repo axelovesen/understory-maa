@@ -64,17 +64,17 @@ async function getCompanies(sort = 'score', period = '1Y') {
 router.get('/', async (req, res) => {
   const sort = req.query.sort || 'score';
     const period = req.query.period || '1Y';
-    const loggedIN = !!req.session.user;
+    const loggedIn = !!req.session.user;
 
     try {
     let companies;
     let isDummy = false;
 
-    if (!loggedIN){
+    if (!loggedIn){
     companies = sortDummy(DUMMY_COMPANIES, sort);
     isDummy = true;
     
-    }else{
+    } else{
     companies = await getCompanies(sort, period);
   }
     res.render('index', {
@@ -93,7 +93,7 @@ router.get('/', async (req, res) => {
       sort,
       period,
       loggedIn,
-      isDummy: !loggedIN,
+      isDummy: !loggedIn,
     });
   }
 });
@@ -117,11 +117,11 @@ router.get('/understory-toplist', auth, async (req, res) => {
     console.error(error);
     return res.status(500).send('Noe gikk galt');
   }
-*/
+
 // /understory-toplist - om oss
 router.get('/understory-toplist', async (req, res) => {
 
 });
-
+*/
 
 module.exports = router;
