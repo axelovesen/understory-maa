@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Understory Toplist</title>
+</head>
+<body>
+    <div class="page">
+
+        <header class="site-header">
+          <h1 class="site-title">Understory Toplist</h1>
+
+          <nav class="site-nav">
+            <% if (loggedIn) { %>
+              <a href="/login" class="nav-button">Logg inn</a>
+            <% } else { %>
+              <a href="/logout" class="nav-button">Logg ut</a>
+            <% } %>
+          </nav>
+        </header>
+
+        <main class="main">
+
+            <!--Intro-->
+            <section class="welcome-section">
+                <h2>Om Understory Toplist</h2>
+                <p>Understory Toplist er vår ide om a sette opp et rangeringssytem som viser hvilke opplevelser, aktiviteter og arrangementer som faktisk leverer best tall / engasjerer brukerne mest. Målet er å skape en oversikt for kunder hos Understory, å kunne måle popularitet, basert på faktiske tall hentet fra Understorys allerede kunder.</p>
+            </section>
+
+            <!--Hvorfor denne ideen?-->
+            <section class="toplist-section">
+                <h2>Hvorfor denne ideen?</h2>
+                <p>Vi ønsker å gjøre det enklere å forstå hvilke opplevelser som faktisk fungerer, både for brukere og arrangører i hovedsak.</p>
+            <ul>
+                <li><strong>1.</strong> Innsamlig av aktivitetsdata på tvers av understorys kunder og deres annonser (besøk, bookinger, engasjement, klikk etc.)</li>
+                <li><strong>2.</strong> Rangering av aktiviteter basert på definerte KPIer (omsetning, bookinger, klikk, besøkende etc.)</li>
+                <li><strong>3.</strong> Presentasjon av topplisten i et brukervennlig format, med enkel tilgang og forståelse</li>
+            </ul>
+            </section>
+
+            <div class="back-button-wrapper">
+                <a href="/" class="btn btn-outline">Tilbake til oversikten</a>
+        </main>
+    </div>
+</body>
+</html>

@@ -155,7 +155,7 @@ router.post('/login', async (req, res) => {
     delete req.session.pendingUserId;
     delete req.session.pendingUserPhone;
 
-    return res.json({ success: true, message: 'Innlogging vellykket', redirect: '/understory-toplist' });
+    return res.json({ success: true, message: 'Innlogging vellykket', redirect: '/' });
 
   }catch (error) {
     console.error(error);
