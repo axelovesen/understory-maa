@@ -72,6 +72,12 @@
 
       <% if (loggedIn) { %>
       <section class="toplist-section">
+
+        <h2>Utforsk Understory Toplist</h2>
+          <p class="section-subtitle">
+            Her kan du se de kundene til Understory som skaper mest engasjement
+          </p>
+          
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
@@ -123,10 +129,7 @@
 
         <!-- Når bruker er innlogget -->
         <section class="toplist-section">
-          <h2>Utforsk Understory Toplist</h2>
-          <p class="section-subtitle">
-            Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
-          </p>
+          
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist-blurred">
               <% companies.forEach(function(company, index) { %>
