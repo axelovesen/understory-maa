@@ -98,30 +98,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-/*
-// /understory-toplist - kun for innloggede (kan bruke samme view)
-router.get('/understory-toplist', auth, async (req, res) => {
-  try {
-    const sort = req.query.sort || 'score';
-    const period = req.query.period || '1Y';
-    const companies = await getCompanies(sort, period);
-
-    res.render('index', {
-      title: 'Understory Toplist',
-      companies,
-      sort,
-      period,
-      loggedIn: true,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send('Noe gikk galt');
-  }
-
-// /understory-toplist - om oss
-router.get('/understory-toplist', async (req, res) => {
-
-});
-*/
-
 module.exports = router;
