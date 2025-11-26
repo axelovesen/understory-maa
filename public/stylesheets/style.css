@@ -450,6 +450,5 @@ body {
 .blurred {
   filter: blur(5px);
   opacity: 1;
-  pointer-events: none;
-  user-select: none;
+  background: rgba(255, 0, 0, 0.1); /* bare for test */
 }
