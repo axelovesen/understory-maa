@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        window.location.href = data.redirect || '/understory-toplist';
+        window.location.href = data.redirect || '/';
 
       } catch (err){
         console.error(err);

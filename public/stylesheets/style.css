@@ -383,6 +383,7 @@ body {
   width: 100%;
 }
 
+
 .nav-link {
   color: #374151;
   font-size: 14px;
@@ -419,4 +420,29 @@ body {
 .back-button:hover {
   background: #000;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+  
+.metric-blurred {
+  filter: blur(5px);
+}
+
+/* Info-banner for dummy-data */
+.info-banner {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.info-warning {
+  background-color: rgba(255, 193, 7, 0.15);
+  border: 1px solid rgba(255, 193, 7, 0.6);
+  color: #644000;
+}
+
+.welcome-user {
+  margin-right: 12px;
+  font-size: 0.9rem;
+  opacity: 0.8;
 }

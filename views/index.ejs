@@ -31,15 +31,17 @@
     <main class="main">
       <!-- Når bruker er innlogget -->
       <section class="welcome-section">
-        <h2>Velkommen tilbake til Understory Toplist!</h2>
-        <p>Du er nå logget inn og kan se hele topplisten.</p>
+        <h2>Velkommen til Understory Toplist!</h2>
+         <p>
+          Understory Toplist viser de mest vellykede kundene til Understory.<br>
+          Se hvilke kunder som skaper mest egasjement, flest bookinger og høyest omsetning.<br>
+          Logg inn for å låse opp og se topplisten
+        </p>
       </section>
 
       <section class="toplist-section">
-        <h2>Utforsk Understory Toplist</h2>
-        <p class="section-subtitle">
-          Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
-        </p>
+         
+       
 
       <div class="filter-wrapper">
         <div class="filter-header">FILTRER ETTER:</div>
@@ -61,14 +63,14 @@
       </div>
       </div>
 
-      <% if (loggedIn) { %>
+      <% if (isDummy) { %>
+        <div class="info-banner info-warning">
+          Du ser en <strong>eksempeldata</strong>. Logg inn for å se ekte data.
+        </div>
+      <% } %>
 
-      <!--Toppliste-->
+      <% if (loggedIn) { %>
       <section class="toplist-section">
-        <h2>Utforsk Undertory Toplist</h2>
-        <p class="section-subtitle">
-          Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
-        </p>
         
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
@@ -76,34 +78,36 @@
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
                   <span class="title"><%= company.name %></span>
-
-                  <% if (sort === 'revenue') { %>
-                    <span class="metric">Omsetning: <%= company.revenue %> DKK</span>
+                   <% if (sort === 'revenue') { %>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Omsetning: <%= company.revenue %> DKK
+                    </span>
                   <% } else if (sort === 'bookings') { %>
-                    <span class="metric">Bookinger: <%= company.bookings %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Bookinger: <%= company.bookings %>
+                    </span>
                   <% } else if (sort === 'clicks') { %>
-                    <span class="metric">Annonseklikk: <%= company.clicks %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Annonseklikk: <%= company.clicks %>
+                    </span>
                   <% } else if (sort === 'visits') { %>
-                    <span class="metric">Besøkende: <%= company.visits %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Besøkende: <%= company.visits %>
+                    </span>
                   <% } else { %>
-                    <span class="metric">Score: <%= company.score %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Score: <%= company.score %>
+                    </span>
                   <% } %>
                   </li>
               <% }); %>
             </ul>
           <% } else { %>
-            <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
           <% } %>
         </section>
       <% } else { %>
-        <p claas="locked-text">Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
 
         <!-- Når bruker IKKE er innlogget -->
-        <section class="welcome-section">
-          <h2>Velkommen til Understory Toplist!</h2>
-          <p>For å få full tilgang til Understory toplist, vennligst logg inn eller registrer deg.</p>
-        </section>
-
         <section class="toplist-section">
           <h2>Utforsk Understory Toplist</h2>
           <p class="section-subtitle">
