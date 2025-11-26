@@ -75,6 +75,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+/*
 // /understory-toplist - kun for innloggede (kan bruke samme view)
 router.get('/understory-toplist', auth, async (req, res) => {
   try {
@@ -94,5 +95,6 @@ router.get('/understory-toplist', auth, async (req, res) => {
     return res.status(500).send('Noe gikk galt');
   }
 });
+*/
 
 module.exports = router;

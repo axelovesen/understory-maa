@@ -31,15 +31,14 @@
     <main class="main">
       <!-- Når bruker er innlogget -->
       <section class="welcome-section">
-        <h2>Velkommen tilbake til Understory Toplist!</h2>
-        <p>Du er nå logget inn og kan se hele topplisten.</p>
+        <h2>Velkommen til Understory Toplist!</h2>
+        <p>Understory Toplist gir deg oversikt over de mest vellykede kundene til Understory.</p>
+        <p>Vi viser de kundene som skaper mest egasjement, flest bookinger, høyest omsetning og best total score</p>
+        <p>Logg inn for å låse opp hele toplisten og utforsk hvordan ekte kunder bruker Understory for å vokse</p>
       </section>
 
       <section class="toplist-section">
-        <h2>Utforsk Understory Toplist</h2>
-        <p class="section-subtitle">
-          Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
-        </p>
+       
 
       <div class="filter-wrapper">
         <div class="filter-header">FILTRER ETTER:</div>
@@ -65,10 +64,6 @@
 
       <!--Toppliste-->
       <section class="toplist-section">
-        <h2>Utforsk Undertory Toplist</h2>
-        <p class="section-subtitle">
-          Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
-        </p>
         
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
@@ -92,18 +87,11 @@
               <% }); %>
             </ul>
           <% } else { %>
-            <p>Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
           <% } %>
         </section>
       <% } else { %>
-        <p claas="locked-text">Topplisten er låst. Vennligst logg inn for å se innholdet.</p>
 
         <!-- Når bruker IKKE er innlogget -->
-        <section class="welcome-section">
-          <h2>Velkommen til Understory Toplist!</h2>
-          <p>For å få full tilgang til Understory toplist, vennligst logg inn eller registrer deg.</p>
-        </section>
-
         <section class="toplist-section">
           <h2>Utforsk Understory Toplist</h2>
           <p class="section-subtitle">
