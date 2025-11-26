@@ -80,9 +80,9 @@ app.get('/health', (req, res) => {
   });
 });
 
-app.get('/om-oss', (req, res) => {
+app.get('/om_oss', (req, res) => {
   const loggedIn = !!req.session.user;
-  res.render('om-oss', { loggedIn});
+  res.render('om_oss', { loggedIn});
 });
 
 //routes
