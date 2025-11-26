@@ -397,6 +397,32 @@ body {
   color: #111827;
   text-decoration: underline;
 }
+
+.back-button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  padding: 12px 24px;
+  background: #111827;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-button:hover {
+  background: #000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+  
 .metric-blurred {
   filter: blur(5px);
 }

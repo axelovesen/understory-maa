@@ -80,6 +80,11 @@ app.get('/health', (req, res) => {
   });
 });
 
+app.get('/om-oss', (req, res) => {
+  const loggedIn = !!req.session.user;
+  res.render('om-oss', { loggedIn});
+});
+
 //routes
 app.use('/', authRouter);
 app.use('/', indexRouter);
