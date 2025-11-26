@@ -453,3 +453,16 @@ body {
   pointer-events: none;
   user-select: none;
 }
+
+.info-warning {
+  background-color: rgba(255, 193, 7, 0.08); /* lysere gult */
+  border: 1px solid rgba(255, 193, 7, 0.35); 
+  color: #7c5a00; /* litt mykere tekstfarge */
+}
+
+.info-warning {
+  background-color: #fef3c7;        /* solid lys gul */
+  border: 1px solid #fbbf24;        /* klarere kant */
+  color: #92400e;                   /* mørkere tekst */
+  font-weight: 500;
+}
