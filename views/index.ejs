@@ -68,7 +68,6 @@
 
       <% if (loggedIn) { %>
       <section class="toplist-section">
-      <div class="<%= isDummy ? '' : 'blurred' %>">
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
@@ -76,23 +75,23 @@
                   <span class="rank"><%= index + 1 %></span>
                   <span class="title"><%= company.name %></span>
                    <% if (sort === 'revenue') { %>
-                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                    <span class="metric">
                       Omsetning: <%= company.revenue %> DKK
                     </span>
                   <% } else if (sort === 'bookings') { %>
-                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                    <span class="metric">
                       Bookinger: <%= company.bookings %>
                     </span>
                   <% } else if (sort === 'clicks') { %>
-                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                    <span class="metric">
                       Annonseklikk: <%= company.clicks %>
                     </span>
                   <% } else if (sort === 'visits') { %>
-                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                    <span class="metric">
                       Besøkende: <%= company.visits %>
                     </span>
                   <% } else { %>
-                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                    <span class="metric">
                       Score: <%= company.score %>
                     </span>
                   <% } %>
@@ -101,7 +100,6 @@
             </ul>
           <% } else { %>
           <% } %>
-          </div>
         </section>
       <% } else { %>
 
@@ -112,7 +110,7 @@
             Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
           </p>
           <% if (companies && companies.length > 0) { %>
-            <ul class="toplist">
+            <ul class="toplist-blurred">
               <% companies.forEach(function(company, index) { %>
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
