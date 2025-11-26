@@ -68,7 +68,7 @@
 
       <% if (loggedIn) { %>
       <section class="toplist-section">
-      <div class="<%= loggedIn ? '' : 'blurred' %>">
+      <div class="<%= isDummy ? '' : 'blurred' %>">
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
@@ -77,19 +77,19 @@
                   <span class="title"><%= company.name %></span>
                    <% if (sort === 'revenue') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Omsetning: <%= company.revenue %> DKK
+                      Omsetning: <%= Number(company.revenue).toLocaleString('nb-NO') %> DKK
                     </span>
                   <% } else if (sort === 'bookings') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Bookinger: <%= company.bookings %>
+                      Bookinger: <%= Number(company.bookings).toLocaleString('nb-NO') %>
                     </span>
                   <% } else if (sort === 'clicks') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Annonseklikk: <%= company.clicks %>
+                      Annonseklikk: <%= Number(company.clicks).toLocaleString('nb-NO') %>
                     </span>
                   <% } else if (sort === 'visits') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Besøkende: <%= company.visits %>
+                      Besøkende: <%= Number(company.visits).toLocaleString('nb-NO') %>
                     </span>
                   <% } else { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
@@ -119,13 +119,13 @@
                   <span class="title"><%= company.name %></span>
 
                   <% if (sort === 'revenue') { %>
-                    <span class="metric">Omsetning: <%= company.revenue %> DKK</span>
+                    <span class="metric">Omsetning: <%= Number(company.revenue).toLocaleString('nb-NO') %> DKK</span>
                   <% } else if (sort === 'bookings') { %>
-                    <span class="metric">Bookinger: <%= company.bookings %></span>
+                    <span class="metric">Bookinger: <%= Number(company.bookings).toLocaleString('nb-NO') %></span>
                   <% } else if (sort === 'clicks') { %>
-                    <span class="metric">Annonseklikk: <%= company.clicks %></span>
+                    <span class="metric">Annonseklikk: <%= Number(company.clicks).toLocaleString('nb-NO') %></span>
                   <% } else if (sort === 'visits') { %>
-                    <span class="metric">Besøkende: <%= company.visits %></span>
+                    <span class="metric">Besøkende: <%= Number(company.visits).toLocaleString('nb-NO') %></span>
                   <% } else { %>
                     <span class="metric">Score: <%= company.score %></span>
                   <% } %>
