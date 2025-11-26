@@ -44,15 +44,13 @@
 
       <div class="filter-wrapper">
         <div class="filter-header">FILTRER ETTER:</div>
-      <!--filterbar, venstre, (tidsperiode)-->
+      <!--filterbar, venstre, tidsperiode-->
       <div class="filter-group">
         <button class="pill <%= period === '1M' ? 'pill-active' : '' %>" data-period="1M">Denne måneden</button>
         <button class="pill <%= period === '3M' ? 'pill-active' : '' %>" data-period="3M">De siste 3 månedene</button>
         <button class="pill <%= period === '6M' ? 'pill-active' : '' %>" data-period="6M">De siste 6 månedene</button>
         <button class="pill <%= period === '1Y' ? 'pill-active' : '' %>" data-period="1Y">De siste 12 månedene</button>
       </div>
-
-      <!--høyre, KPI vi sorterer etter-->
 
       <div class="filter-group">
         <button class="pill small <%= sort === 'revenue' ? 'pill-active' : '' %>" data-sort="revenue">Høyest omsetning</button>
@@ -109,7 +107,6 @@
         <!-- Når bruker IKKE er innlogget -->
         <section class="toplist-section">
           <h2>Utforsk Understory Toplist</h2>
-          <a href="/views/om-oss" class="nav-link">Om oss</a>
           <p class="section-subtitle">
             Her kan du se de mest populære historiene basert på brukernes vurderinger og engasjement.
           </p>
@@ -141,6 +138,7 @@
       <% } %>
       </section>
     </main>
+    <a href="/views/om-oss" class="nav-link">Om oss</a>
 
     <!-- Login-modal -->
     <div id="loginModal" class="modal hidden">
