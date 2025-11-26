@@ -68,7 +68,7 @@
 
       <% if (loggedIn) { %>
       <section class="toplist-section">
-      <div class="<%= loggedIn ? '' : 'blurred' %>">
+      <div class="<%= isDummy ? '' : 'blurred' %>">
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
