@@ -62,9 +62,13 @@
       </div>
       </div>
 
-      <% if (loggedIn) { %>
+      <% if (isDummy) { %>
+        <div class="info-banner info-warning">
+          Du ser en <strong>eksempeldata</strong>. Logg inn for å se ekte data.
+        </div>
+      <% } %>
 
-      <!--Toppliste-->
+      <% if (loggedIn) { %>
       <section class="toplist-section">
         
           <% if (companies && companies.length > 0) { %>
@@ -73,17 +77,26 @@
                 <li class="toplist-item">
                   <span class="rank"><%= index + 1 %></span>
                   <span class="title"><%= company.name %></span>
-
-                  <% if (sort === 'revenue') { %>
-                    <span class="metric">Omsetning: <%= company.revenue %> DKK</span>
+                   <% if (sort === 'revenue') { %>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Omsetning: <%= company.revenue %> DKK
+                    </span>
                   <% } else if (sort === 'bookings') { %>
-                    <span class="metric">Bookinger: <%= company.bookings %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Bookinger: <%= company.bookings %>
+                    </span>
                   <% } else if (sort === 'clicks') { %>
-                    <span class="metric">Annonseklikk: <%= company.clicks %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Annonseklikk: <%= company.clicks %>
+                    </span>
                   <% } else if (sort === 'visits') { %>
-                    <span class="metric">Besøkende: <%= company.visits %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Besøkende: <%= company.visits %>
+                    </span>
                   <% } else { %>
-                    <span class="metric">Score: <%= company.score %></span>
+                    <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
+                      Score: <%= company.score %>
+                    </span>
                   <% } %>
                   </li>
               <% }); %>

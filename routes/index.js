@@ -12,6 +12,20 @@ const SORT_COLUMNS = {
   visits: 'visits', 
   score: 'score',};
 
+
+//dum data for sikkerhet fordi bare blur holder ikke da man kan inspiserere uten css
+const DUMMY_COMPANIES = [
+  { id: 1, name: 'Firma A', revenue: 100000, bookings: 5000, clicks: 20000, visits: 15000, score: 85 },
+  { id: 2, name: 'Firma B', revenue: 80000, bookings: 3000, clicks: 15000, visits: 12000, score: 78 },
+  { id: 3, name: 'Firma C', revenue: 120000, bookings: 7000, clicks: 25000, visits: 18000, score: 90 },
+  { id: 4, name: 'Firma D', revenue: 60000, bookings: 2000, clicks: 10000, visits: 8000, score: 70 },
+];
+
+function sortDummy(list, sort){
+  const sortColumn = SORT_COLUMNS[sort] || 'score';
+  return list.sort((a, b) => b[sortColumn] - a[sortColumn]);
+}
+
 function buildPeriodCondition(period) {
   switch (period) {
     case '1M':
@@ -48,29 +62,38 @@ async function getCompanies(sort = 'score', period = '1Y') {
 
 // Henter hjemmesiden
 router.get('/', async (req, res) => {
-  try {
-    const sort = req.query.sort || 'score';
+  const sort = req.query.sort || 'score';
     const period = req.query.period || '1Y';
-    const companies = await getCompanies(sort, period);
+    const loggedIN = !!req.session.user;
 
+    try {
+    let companies;
+    let isDummy = false;
+
+    if (!loggedIN){
+    companies = sortDummy(DUMMY_COMPANIES, sort);
+    isDummy = true;
+    
+    }else{
+    companies = await getCompanies(sort, period);
+  }
     res.render('index', {
       title: 'Understory Toplist',
       companies,
       sort,
       period,
-      loggedIn: !!req.session.user,
+      loggedIn,
+      isDummy,
     });
   } catch (error) {
     console.error(error);
-    const sort = req.query.sort || 'score';
-    const period = req.query.period || '1Y';
-
     res.render('index', {
       title: 'Understory Toplist',
       companies: [],
       sort,
       period,
-      loggedIn: !!req.session.user,
+      loggedIn,
+      isDummy: !loggedIN,
     });
   }
 });
@@ -94,7 +117,11 @@ router.get('/understory-toplist', auth, async (req, res) => {
     console.error(error);
     return res.status(500).send('Noe gikk galt');
   }
-});
 */
+// /understory-toplist - om oss
+router.get('/understory-toplist', async (req, res) => {
+
+});
+
 
 module.exports = router;
