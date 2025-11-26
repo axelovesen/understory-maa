@@ -155,10 +155,10 @@ body {
   background: rgba(255,255,255,0.7);
 }
 
-/* Hover = elegant løft */
+/* Hover  */
 .pill:hover {
   background: #f8fafc;
-  border-color: #c0c7d1;
+  border-color: #000000;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
@@ -331,7 +331,7 @@ body {
 }
 
 .error-message {
-  color: #dc2626;
+  color: #3628cd;
   margin-top: 6px;
   font-size: 14px;
 }
