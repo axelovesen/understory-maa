@@ -77,19 +77,19 @@
                   <span class="title"><%= company.name %></span>
                    <% if (sort === 'revenue') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Omsetning: <%= company.revenue %> DKK
+                      Omsetning: <%= Number(company.revenue).toLocaleString('nb-NO') %> DKK
                     </span>
                   <% } else if (sort === 'bookings') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Bookinger: <%= company.bookings %>
+                      Bookinger: <%= Number(company.bookings).toLocaleString('nb-NO') %>
                     </span>
                   <% } else if (sort === 'clicks') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Annonseklikk: <%= company.clicks %>
+                      Annonseklikk: <%= Number(company.clicks).toLocaleString('nb-NO') %>
                     </span>
                   <% } else if (sort === 'visits') { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
-                      Besøkende: <%= company.visits %>
+                      Besøkende: <%= Number(company.visits).toLocaleString('nb-NO') %>
                     </span>
                   <% } else { %>
                     <span class="metric <%= isDummy ? 'metric-blurred' : '' %>">
