@@ -27,24 +27,20 @@ describe('Toplist sine endpoints', () => {
                 });
             });
 
-        it('POST /api/toplist skal opprette en ny entry', (done) => {
+        it('POST /login skal gi 40 ved feil innlogging', (done) => {
             chai.request(app)
-                .post('/api/toplist')
-                .send({ name: 'testFirma', revenue: 12345 })
+                .post('/login')
+                .send({ email: 'test@example.com', password: 'feilpassword' })
                 .end((err, res) => {
-                    expect(res).to.have.status(201);
-                    expect(res.body).to.be.an('object');
-                    expect(res.body.company).to.be.an('object');
-                    expect(res.body.company.name).to.equal('testFirma');
-                    expect(res.body.company.revenue).to.equal(12345);
+                    expect(res).to.have.status(401); //eller 400 avhengig av implementasjon
                     done();
                 });
             });
     
-        it('POST /api/toplist skal returnere 400 ved manglende data', (done) => {
+        it('POST /signup skal gi 400 ved mangelnde data', (done) => {
             chai.request(app)
-                .post('/api/toplist')
-                .send({ name: '' })
+                .post('/signup')
+                .send({ email: '', password: '' })
                 .end((err, res) => {
                     expect(res).to.have.status(400);
                     done();
