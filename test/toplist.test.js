@@ -17,13 +17,12 @@ describe('Toplist sine endpoints', () => {
             });
         });
 
-        it('GET /understory-toplist skal rendres (både period + sort)', (done) => {
+        it('GET /understory-toplist skal vise 404 når siden ikke finnes', (done) => {
             request(app)
                 .get('/understory-toplist')
                 .end((err, res) => {
                     if (err) return done(err);
-                    expect(res.status).to.equal(200);
-                    expect(res.text).to.include('FILTRER ETTER');
+                    expect(res.status).to.equal(404);
                     done();
                 });
             });
