@@ -132,15 +132,23 @@ body {
   max-width: 900px;
 }
 
+.filter-group .pill {
+  margin: 0; 
+}
+
+@media (max-width: 500px) {
+  .filter-group {
+    flex: 1 1 140px;
+  }
+}
+
 /* Piller/valgknapper */
 
-/* ---- FILTER PILLS (premium design) ---- */
-
 .pill {
-  padding: 10px 18px;
+  padding: 7px 14px;
   border-radius: 999px;
   border: 1.5px solid #d1d5db;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: 
