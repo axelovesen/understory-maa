@@ -136,6 +136,8 @@ router.post('/login', async (req, res) => {
   //2fa (POST)
   router.post('/2fa', async (req, res) => {
     try {
+      console.log('SESSION I /2fa:', req.session);
+
       const { code } = req.body;
       if (!req.session.pendingUserId || !req.session.pendingUserPhone) {
         return res.status(400).json({ success: false, message: 'Ingen 2FA forespørsel gående' });
