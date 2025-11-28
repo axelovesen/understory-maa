@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email, password }),
+          credentials: 'same-origin',
         });
 
         const data = await res.json();
@@ -167,6 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code }),
+          credentials: 'same-origin',
+
         });
 
         const data = await res.json();
