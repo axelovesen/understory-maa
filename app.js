@@ -22,7 +22,7 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 
 var app = express();
-app.set('trust proxy', 1); // For å kunne brukes på dopleten
+app.set('trust proxy', 1); //Brukes for å kunne brukes på dopleten
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -33,10 +33,10 @@ app.use((req, res, next) => {
 });
 
 //middleware setup
-app.use(logger('dev'));//logger for HTTP-requests
-app.use(helmet());// sikkerhetsrelaterte HTTP-headers
-app.use(cors());// CORS - tillater alle origins (endre til produksjon!)
-app.use(responseTime());//måler responstid
+app.use(logger('dev'));//logges for HTTP requests
+app.use(helmet());//HTTP headers
+app.use(cors()); //cors
+app.use(responseTime());//måler responstidenm
 app.use(express.json());//parser for JSON bodies
 app.use(express.urlencoded({ extended: false }));//parser for url-encoded bodies
 
@@ -49,8 +49,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false, // setter vi til true når vi kjører HTTPS + trust proxy
-      maxAge: 1000 * 60 * 60 * 24, // 1 dag
+      secure: false, // setter vi til true når vi kjører HTTPS+trust proxy
+      maxAge: 1000 * 60 * 60 * 24, // = 1 dag
     },
   })
 );
@@ -66,13 +66,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //rate limit på API
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutter
-  max: 100, // maks 100 requests per IP
+  windowMs: 15 * 60 * 1000, // settes til 15 minutter
+  max: 100, // maks 100 requests på IP kall
 });
 
 app.use('/api', apiLimiter);
 
-// Enkel health-check (nyttig til load-test og debugging)
+// health-check for laod test og debugging
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -82,7 +82,7 @@ app.get('/health', (req, res) => {
 
 app.get('/om_oss', (req, res) => {
   const loggedIn = !!req.session.user;
-  res.render('om_oss', { loggedIn});
+  res.render('om_oss', { loggedIn });
 });
 
 //routes
