@@ -33,7 +33,7 @@ describe('Toplist sine endpoints', () => {
                 .send({ email: 'test@example.com', password: 'feilpassword' })
                 .end((err, res) => {
                     if (err) return done(err);
-                    expect(res.status).to.equal(400); //eller 400 avhengig av implementasjon
+                    expect(res.status).to.equal(400); 
                     done();
                 });
             });

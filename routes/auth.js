@@ -10,11 +10,11 @@ const twilioClient = twilio(
 );
 const verifyServiceSid = process.env.TWILIO_VERIFY_SID;
 
-// Registrer (POST) – brukt av fetch i login.js
+//registrer POST ved brukt av fetch i login.js
 router.post('/signup', async (req, res) => {
   const { email, phone, password } = req.body;
 
-  try {
+  try { //validering
     if (!email || !phone || !password) {
       return res.status(400).json({
         success: false,
@@ -22,6 +22,7 @@ router.post('/signup', async (req, res) => {
       });
     }
 
+    //sjekker om epost eller telefon allerede er i bruk
     const [existingEmail] = await pool.query(
       'SELECT * FROM users WHERE email = ?',
       [email]
@@ -33,6 +34,7 @@ router.post('/signup', async (req, res) => {
         .json({ success: false, message: 'E-post er allerede i Bruk' });
     }
 
+    //sjekker telefon
     const [existingPhone] = await pool.query(
       'SELECT * FROM users WHERE phone = ?',
       [phone]
@@ -45,6 +47,7 @@ router.post('/signup', async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
     
+    //setter inn ny bruker i databasen
     await pool.query(
       'INSERT INTO users (email, phone, password_hash) VALUES (?, ?, ?)',
       [email, phone, hash] //4 verdier
@@ -65,11 +68,11 @@ router.post('/signup', async (req, res) => {
 });
 
 
-// Login (POST)
+//login POST
 router.post('/login', async (req, res) => {
   try {
 
-    const { email, password } = req.body;
+    const { email, password } = req.body; //henter email og passord fra body
 
     if (!email || !password) {
       return res
@@ -89,6 +92,7 @@ router.post('/login', async (req, res) => {
         .json({ success: false, message: 'Feil e-post eller passord' });
     }
 
+    //sjekker passord
     const user = rows[0];
     const match = await bcrypt.compare(password, user.password_hash);
     if (!match) {
@@ -97,7 +101,7 @@ router.post('/login', async (req, res) => {
         .json({ success: false, message: 'Feil e-post eller passord' });
     }
 
-    if (!user.phone) {
+    if (!user.phone) { //sjekker om bruker har telefonnummr
       return res.status(400).json({
         success: false,
         message: 'Det er ikke registrert telefonnummer på denne brukeren',
@@ -124,6 +128,7 @@ router.post('/login', async (req, res) => {
       message: 'kode sendt til telefon'
     });
 
+    //catch twilio feil
   } catch (twilioError) {
     console.error('Twilio feil i /login:', twilioError);
     return res.status(500).json({
@@ -133,7 +138,7 @@ router.post('/login', async (req, res) => {
     }
   });
 
-  //2fa (POST)
+  //2fa POST
   router.post('/2fa', async (req, res) => {
     try {
       console.log('SESSION I /2fa:', req.session);
@@ -148,12 +153,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Ugyldig kode' });
     }
 
-    //2FA ok , logg inn
+    //2FA ok, logg inn
     req.session.user = {
       id: req.session.pendingUserId
     };
 
-    //Rydder så opp
+    //rydder så opp
     delete req.session.pendingUserId;
     delete req.session.pendingUserPhone;
 

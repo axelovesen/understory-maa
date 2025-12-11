@@ -77,7 +77,8 @@
           <p class="section-subtitle">
             Her kan du se de kundene til Understory som skaper mest engasjement
           </p>
-          
+        
+          <!--nb-NO til norsk valuta-->
           <% if (companies && companies.length > 0) { %>
             <ul class="toplist">
               <% companies.forEach(function(company, index) { %>
@@ -113,7 +114,7 @@
         </section>
       <% } else { %>
 
-        <!-- Når bruker er innlogget -->
+        <!--når bruker er innlogget-->
         <section class="toplist-section">
           
           <% if (companies && companies.length > 0) { %>
@@ -145,7 +146,7 @@
       </section>
     </main>
 
-    <!-- Login-modal -->
+    <!--login-modal-->
     <div id="loginModal" class="modal hidden">
       <div class="modal-content">
         <span class="close" id="closeLogin">&times;</span>
@@ -187,7 +188,7 @@
       </div>
     </div>
 
-    <!-- Signup-modal -->
+    <!--signup-modal-->
     <div id="signupModal" class="modal hidden">
       <div class="modal-content">
         <span class="close" id="closeSignup">&times;</span>

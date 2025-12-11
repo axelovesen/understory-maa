@@ -1,5 +1,3 @@
-/* Basestil */
-
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
@@ -11,8 +9,7 @@ body {
   min-height: 100vh;
 }
 
-/* Sørg for at header og main er midtstilt og har samme bredde */
-
+/*sørger for at header og main er midtstilt og har samme bredde*/
 .site-header,
 .main {
   max-width: 960px;
@@ -20,7 +17,7 @@ body {
   padding: 24px 24px 0;
 }
 
-/* Header / topp */
+/*header på toppen*/
 
 .site-header {
   display: flex;
@@ -52,13 +49,11 @@ body {
   background: transparent;
 }
 
-/* "Logg inn" – diskret knapp */
 .btn-skjult {
   border-color: #cbd5e1;
   background: #f8fafc;
 }
 
-/* "Registrer deg" – primær */
 .btn-outline {
   background: #111827;
   color: #fff;
@@ -103,14 +98,14 @@ body {
   color: #6b7280;
 }
 
-/*  filtrer wrapper - sentrer alt */
+/*filtrer wrapper og sentrer alt*/
 
 .filter-wrapper {
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;     /* <— midtstiller ALT */
+  align-items: center; 
   gap: 12px;
 }
 
@@ -126,7 +121,7 @@ body {
 .filter-group {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* <— midtstilling av knappene */
+  justify-content: center;
   gap: 10px;
   width: 100%;
   max-width: 900px;
@@ -142,7 +137,7 @@ body {
   }
 }
 
-/* Piller/valgknapper */
+/*piller/valgknapper*/
 
 .pill {
   padding: 7px 14px;
@@ -163,7 +158,7 @@ body {
   background: rgba(255,255,255,0.7);
 }
 
-/* Hover  */
+/*hover*/
 .pill:hover {
   background: #f8fafc;
   border-color: #000000;
@@ -172,7 +167,7 @@ body {
   color: #000000;
 }
 
-/* Aktive knapper */
+/*aktive knapper*/
 .pill-active {
   background: #111827;
   color: #ffffff;
@@ -212,7 +207,7 @@ body {
   background: #ffffff;
 }
 
-/* Rank-sirkel */
+/*rank-sirkel*/
 
 .rank {
   width: 26px;
@@ -227,7 +222,7 @@ body {
   background: #e0f2c6;
 }
 
-/* Navn + metric */
+/*navn og metric*/
 
 .title {
   font-size: 14px;
@@ -273,7 +268,7 @@ body {
   }
 }
 
-/* Modal overstridelse fiks  */
+/*overstridelse fiks*/
 
 .modal {
   position: fixed;
@@ -306,7 +301,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Lukke X */
 .modal-content .close {
   position: absolute;
   top: 14px;
@@ -315,7 +309,7 @@ body {
   cursor: pointer;
 }
 
-/* Form */
+/*form */
 .modal-content form {
   display: flex;
   flex-direction: column;
@@ -351,41 +345,40 @@ body {
   text-align: center;
 }
 
-/*  sentrere MODAL innhold */
+/*sentrere MODAL innhold*/
 
 .modal-content {
   text-align: center;
 }
 
-/* Sentrum-juster heading */
 .modal-content h2 {
   text-align: center;
   width: 100%;
   margin-bottom: 20px;
 }
 
-/* Inputfeltene skal fortsatt være full width, men sentrert i layouten */
+/*inputfeltene skal fortsatt være full width, men sentrert i layouten*/
 .modal-content form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* <– centrering */
+  align-items: center;
 }
 
-/* Selve input-feltene */
+/*Selve input-feltene*/
 .modal-content input {
   width: 100%;
-  max-width: 330px; /* <– hindrer dem i å være for brede */
+  max-width: 330px; 
   margin: 6px 0;
 }
 
-/* Knapp */
+/*Knapp*/
 .modal-content .btn-primary {
   max-width: 330px;
   width: 100%;
 }
 
-/* "Har du ikke konto" teksten */
+/*Har du ikke kontoteksten*/
 .auth-bunntekst {
   text-align: center;
   width: 100%;
@@ -435,7 +428,7 @@ body {
   filter: blur(5px);
 }
 
-/* Info-banner for dummy-data */
+/*infobanner for dummy-data */
 .info-banner {
   margin-top: 12px;
   padding: 10px 14px;
@@ -463,9 +456,9 @@ body {
 }
 
 .info-warning {
-  background-color: rgba(255, 193, 7, 0.08); /* lysere gult */
+  background-color: rgba(255, 193, 7, 0.08); 
   border: 1px solid rgba(255, 193, 7, 0.35); 
-  color: #7c5a00; /* litt mykere tekstfarge */
+  color: #7c5a00; 
   opacity: 0.95;
   text-align: center;
 }

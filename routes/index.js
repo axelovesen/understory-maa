@@ -21,7 +21,7 @@ const DUMMY_COMPANIES = [
   { id: 4, name: 'Firma D', revenue: 60000, bookings: 2000, clicks: 10000, visits: 8000, score: 70 },
 ];
 
-function sortDummy(list, sort){
+function sortDummy(list, sort){ //sorterer dummy data
   const sortColumn = SORT_COLUMNS[sort] || 'score';
   return list.sort((a, b) => b[sortColumn] - a[sortColumn]);
 }
@@ -40,9 +40,10 @@ function buildPeriodCondition(period) {
   }
 }
 
+//henter selskaper fra db, sorterer med SQL spørring
 async function getCompanies(sort = 'score', period = '1Y') {
   const sortColumn = SORT_COLUMNS[sort] || 'score';
-  const periodCondition = buildPeriodCondition(period);
+  const periodCondition = buildPeriodCondition(period); //bygger periode betingelse
   
   const [rows] = await pool.query(
     `SELECT c.id, c.name,
@@ -60,7 +61,7 @@ async function getCompanies(sort = 'score', period = '1Y') {
   return rows;
 }
 
-// Henter hjemmesiden
+//henter hjemmesiden
 router.get('/', async (req, res) => {
   const sort = req.query.sort || 'score';
     const period = req.query.period || '1Y';
@@ -70,11 +71,11 @@ router.get('/', async (req, res) => {
     let companies;
     let isDummy = false;
 
-    if (!loggedIn){
+    if (!loggedIn){ //viser dummy data om ikke logget inn
     companies = sortDummy(DUMMY_COMPANIES, sort);
     isDummy = true;
     
-    } else{
+    } else{ //henter ekte data om logget inn
     companies = await getCompanies(sort, period);
   }
     res.render('index', {

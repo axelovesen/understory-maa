@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('express-async-errors'); // må være øverst
+require('express-async-errors'); //må være øverst
 
 var express = require('express');
 var path = require('path');
@@ -16,13 +16,13 @@ var responseTime = require('response-time');
 //db kobling
 const db = require('./db');
 
-//Routes
+//routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 
 var app = express();
-app.set('trust proxy', 1); //Brukes for å kunne brukes på dopleten
+app.set('trust proxy', 1); //brukes for å kunne brukes på dopleten
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -50,7 +50,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false, // setter vi til true når vi kjører HTTPS+trust proxy
-      maxAge: 1000 * 60 * 60 * 24, // = 1 dag
+      maxAge: 1000 * 60 * 60 * 24, //=1 dag
     },
   })
 );
@@ -66,13 +66,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //rate limit på API
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // settes til 15 minutter
-  max: 100, // maks 100 requests på IP kall
+  windowMs: 15 * 60 * 1000, //settes til 15 minutter
+  max: 100, //maks 100 requests på IP kall
 });
 
 app.use('/api', apiLimiter);
 
-// health-check for laod test og debugging
+//health-check for laod test og debugging
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
