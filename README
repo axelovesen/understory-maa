@@ -1,3 +1,20 @@
-Vi vet at .env filen innheolder sensitiv informasjon og at man egentlig ikke skal dele denne filen, 
-men applikajsonen vår er avhengig av databasen for å visualisere applikajsonen vår,
-fordi vi bruker fiktiv data i databasen. 
+For å kjøre prosjektet lokalt:
+	1.	Installer Node, npm og MySQL
+	2.	Kjør npm install
+	3.	Opprett en .env med dine egne databaseverdier og API-nøkler
+  
+      Det må se ut som dette:
+      DB_HOST=
+      DB_PORT=
+      DB_USER=
+      DB_PASS=
+      DB_NAME=
+
+      TWILIO_ACCOUNT_SID=
+      TWILIO_AUTH_TOKEN=
+      TWILIO_VERIFY_SID=
+
+      SESSION_SECRET=
+
+	4.	Start applikasjonen med npm start
+	5.	Åpne http://localhost:3000
