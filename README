@@ -1,0 +1,3 @@
+Vi vet at .env filen innheolder sensitiv informasjon og at man egentlig ikke skal dele denne filen, 
+men applikajsonen vår er avhengig av databasen for å visualisere applikajsonen vår,
+fordi vi bruker fiktiv data i databasen. 
